@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Excel Data Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+	<!-- Add this in the <head> to load Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+			width: 80%; /* Shrinks the body width */
+			margin: 0 auto; /* Centers the content */
+        }
+		
+		.container {
+            max-width: 800px;
+            margin: auto;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2, h3 {
+            color: #2c3e50;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+
+        button {
+            background: #007bff;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        #chart-container {
+            margin-top: 20px;
+        }
+
+        .chart-wrapper {
+            position: relative;
+            display: inline-block;
+            text-align: center;
+            margin: 10px;
+        }
+
+        .chart-image {
+            width: 400px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            font-size: 20px;
+            color: white;
+            background: red;
+            width: 24px;
+            height: 24px;
+            text-align: center;
+            border-radius: 50%;
+            cursor: pointer;
+            line-height: 22px;
+            font-weight: bold;
+        }
+
+        .close-btn:hover {
+            background: darkred;
+        }
+		
+		.divider {
+			border: none;
+			height: 3px;
+			background-color: #ccc; /* Light gray */
+			margin: 20px 0;
+		}
+		h2 i {
+    color: #28a745; /* Green Excel color */
+    margin-left: 5px;
+    font-size: 20px;
+}
+    </style>
+</head>
+<body>
+    <h2><i class="fas fa-file-upload"></i>Upload Excel File <i class="fas fa-file-excel"></i></h2>
+    <form action="/" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <button type="submit">Upload</button>
+    </form>
+	<hr class="divider">
+
+    <h2><i class="fas fa-comment-dots"></i> Ask AI a Question <i class="fas fa-robot"></i></h2>
+    <input type="text" id="question" placeholder="Ask a question...">
+    <button onclick="askQuestion()">Ask</button>
+    <p id="answer"></p>
+	<hr class="divider">
+
+    <h2><i class="fas fa-chart-line"></i> Generate Chart <i class="fas fa-chart-pie"></i></h2>
+    <label for="sheet">Sheet:</label>
+    <select id="sheet">
+        {% for sheet in sheets %}
+            <option value="{{ sheet }}">{{ sheet }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="chartType">Chart Type:</label>
+    <select id="chartType" onchange="toggleInputs()">
+        <option value="bar">Bar</option>
+        <option value="pie">Pie</option>
+        <option value="line">Line</option>
+        <option value="heatmap">Heatmap</option>
+        <option value="correlation">Correlation Matrix</option>
+    </select>
+
+    <div id="columnInputs">
+        <input type="text" id="xCol" placeholder="X-axis Column">
+        <input type="text" id="yCol" placeholder="Y-axis Column">
+    </div>
+
+    <button onclick="generateChart()">Generate</button>
+
+    <div id="chart-container">
+        {% for chart in charts %}
+            <div class="chart-wrapper" id="chart-{{ chart }}">
+                <img src="{{ url_for('static', filename='charts/' + chart) }}" class="chart-image">
+                <span class="close-btn" onclick="removeChart('{{ chart }}')">&times;</span>
+            </div>
+        {% endfor %}
+    </div>
+
+    <script>
+        function askQuestion() {
+            let question = document.getElementById("question").value;
+            fetch("/ask", { method: "POST", body: new URLSearchParams({ question }) })
+                .then(res => res.json()).then(data => document.getElementById("answer").innerText = data.answer);
+        }
+
+function generateChart() {
+    let sheet = document.getElementById("sheet").value;
+    let chartType = document.getElementById("chartType").value;
+    let xCol = document.getElementById("xCol").value;
+    let yCol = document.getElementById("yCol").value;
+
+    let requestData = { sheet, chartType };
+
+    if (chartType !== "heatmap" && chartType !== "correlation") {
+        requestData.xCol = xCol;
+        requestData.yCol = yCol;
+    }
+
+    fetch("/chart", {
+        method: "POST",
+        body: new URLSearchParams(requestData)
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.chart_urls) {
+            let chartContainer = document.getElementById("chart-container");
+            chartContainer.innerHTML = "";  // Clear previous charts
+
+            data.chart_urls.forEach(chartUrl => {
+                let chartWrapper = document.createElement("div");
+                chartWrapper.className = "chart-wrapper";
+
+                let img = document.createElement("img");
+                img.src = chartUrl;
+                img.className = "chart-image";
+
+                let closeBtn = document.createElement("span");
+                closeBtn.className = "close-btn";
+                closeBtn.innerHTML = "&times;";
+                closeBtn.onclick = function () {
+                    removeChart(chartUrl.split('/').pop()); // Extract filename from URL
+                };
+
+                chartWrapper.appendChild(img);
+                chartWrapper.appendChild(closeBtn);
+                chartContainer.appendChild(chartWrapper);
+            });
+        }
+    });
+}
+
+
+
+
+        function removeChart(chartName) {
+			fetch("/remove_chart", {
+				method: "POST",
+				body: new URLSearchParams({ chart: chartName })
+			})
+			.then(res => res.json())
+			.then(data => {
+				if (data.success) {
+					let chartElement = document.querySelector(`.chart-wrapper img[src$='${chartName}']`)?.parentElement;
+					if (chartElement) {
+						chartElement.remove();  // Remove the chart dynamically
+					}
+				}
+			});
+		}
+
+        function toggleInputs() {
+            let chartType = document.getElementById("chartType").value;
+            let columnInputs = document.getElementById("columnInputs");
+
+            if (chartType === "heatmap" || chartType === "correlation") {
+                columnInputs.style.display = "none";
+            } else {
+                columnInputs.style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>
