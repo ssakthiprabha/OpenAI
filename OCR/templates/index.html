@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Search BOT </title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<style>
+        /* Reset default styles */
+        body, h1, h2, p, a, input, button {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f4f7fb;
+            color: #333;
+            font-size: 16px;
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Container for the content */
+        .welcome-container {
+            background-color: #fff;
+            padding: 40px 30px;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 700px;
+            text-align: center;
+            border: 1px solid #e0e0e0;
+        }
+
+        /* Welcome heading */
+        h1 {
+            font-size: 2.5em;
+            color: #4CAF50;
+            margin-bottom: 20px;
+            text-transform: capitalize;
+        }
+
+        h2 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        /* Styling the file upload form */
+        form {
+            margin-top: 30px;
+        }
+
+        input[type="file"] {
+            display: inline-block;
+            padding: 10px 15px;
+            margin-bottom: 20px;
+            background-color: #f7f7f7;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            max-width: 300px;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        /* Query section */
+        #query-section {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        #query {
+            width: 100%;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+            outline: none;
+        }
+
+        #query:focus {
+            border-color: #4CAF50;
+            box-shadow: 0 0 8px rgba(76, 175, 80, 0.2);
+        }
+
+        #ask-button {
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            max-width: 300px;
+            transition: background-color 0.3s ease;
+        }
+
+        #ask-button:hover {
+            background-color: #45a049;
+        }
+
+        #answer {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e8f5e9;
+            border: 1px solid #4CAF50;
+            border-radius: 5px;
+            color: #388E3C;
+            font-weight: bold;
+        }
+ 
+		
+/* Flex container for the welcome section */
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 30px; /* Space between header and rest of the content */
+        }
+
+        /* Welcome heading */
+        h1 {
+            font-size: 1.5em;
+            color: #4CAF50;
+            margin: 0;
+        }
+		
+		/* Flex container for the upload form and file list */
+        .flex-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;  /* Space between the items */
+        }
+
+        /* Flex items: one for the upload form and one for the file list */
+        .upload-form, .file-list {
+            width: 48%;  /* Each takes about half the space */
+        }
+
+        /* Styling the logout button */
+        .logout-button {
+            background-color: #f44336;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .logout-button:hover {
+            background-color: #d32f2f;
+        }
+		
+		/* Simple Solid Line Divider */
+	.divider {
+		border: none;
+		border-top: 2px solid #ddd;
+		margin: 30px 0;
+	}
+
+    </style>
+</head>
+<body>
+	<div class="welcome-container">
+    
+	<div class="header-container">
+            <h1>Welcome, {{ username }}!</h1>
+            <a href="{{ url_for('logout') }}" class="logout-button">Logout</a>
+    </div>
+	<hr class="divider">
+	
+	  {% if current_user.role == 'admin' %}
+        <!-- Flex container to hold both the form and file list side by side -->
+        <div class="flex-container">
+            <!-- Upload Form -->
+            <div class="upload-form">
+                <h2>Upload Documents</h2>
+                <form action="/upload" method="post" enctype="multipart/form-data">
+                    <input type="file" name="file">  <!-- Ensure the name is 'file' -->
+                    <input type="submit" value="Upload">
+                </form>
+            </div>
+
+            <!-- Files in Folder List -->
+           <div class="file-list">
+			<h2>
+				<span class="file-header-icon">
+					<i class="fa fa-folder"></i>  <!-- Example folder icon -->
+				</span>
+				Files in the Folder
+			</h2>
+			<div class="file-cards">
+				{% if file_names %}
+					{% for file in file_names %}
+						<div class="file-card">
+							<div class="file-info">
+								<span class="file-name">{{ file }}</span>
+							</div>
+						</div>
+					{% endfor %}
+				{% else %}
+					<div class="no-files">
+						<p>No files uploaded yet.</p>
+					</div>
+				{% endif %}
+			</div>
+		</div>
+
+
+        </div>
+        {% else %}
+        <p>You do not have access to upload documents.</p>
+        {% endif %}
+	
+	<hr class="divider">
+	
+    <div id="query-section">
+        <h2>Ask a Question</h2>
+        <input type="text" id="query" placeholder="Type your question here...">
+        <button id="ask-button">Ask</button>
+        <div id="answer"></div>
+    </div>  </div>  
+	<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

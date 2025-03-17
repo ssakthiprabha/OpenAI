@@ -1,0 +1,80 @@
+{
+    "Customer PO": "448",
+    "Invoice Number": "Fs1049875",
+    "Date": "06/03/2024",
+    "Account": "220110-1",
+    "Sales Rep": "AKRISTJANSON",
+    "Route": "Plymouth",
+    "Drop": 20,
+    "Terms": "net 60",
+    "Mobile Number": "(907)580-4433",
+    "Bill To": {
+        "Address": "22 30th St NE #102, Auburn, Washington 98002"
+    },
+    "Ship To": {
+        "Address": "800 Stevens Pt Or Bldg 1800, Dakota Dunes, SD 57049"
+    },
+    "Items": [
+        {
+            "ORD/SHPP": "414CS",
+            "FRS/FRZ": "FRESH",
+            "Item#": "518578",
+            "Description": "Top Bid Ff Ch Fs D- 121B0x (Ibp), 71.60 6660 69.30 66.00, CUST ITEM #: D1857AH",
+            "Weight": "273.50",
+            "Unit Price": "$4.83 LB",
+            "Extension": "$1,321.01"
+        },
+        {
+            "ORD/SHPP": "2128",
+            "FRS/FRZ": "FRESH",
+            "Item#": "404601",
+            "Description": "Beef Rib Fingers Bnis Ch Fs D - 2.5#/Bag 1/Box (It 107.70), 93.70 54.00, CUST ITEM #: D0601 AY",
+            "Weight": "107.70",
+            "Unit Price": "$4.58 LB",
+            "Extension": "$493.27"
+        },
+        {
+            "ORD/SHPP": "414c8",
+            "FRS/FRZ": "FRESH",
+            "Item#": "402547",
+            "Description": "Beef Sparerib Ch Fs D- 1Pc/Bag 10/Box (lbp) 141.70, 33.00 36.00 3760 35.10, CUST ITEM #: D2547AC",
+            "Weight": "141.70",
+            "Unit Price": "$2.13 LB",
+            "Extension": "$301.82"
+        },
+        {
+            "ORD/SHPP": "2128",
+            "FRS/FRZ": "FRESH",
+            "Item#": "052905",
+            "Description": "Balllip Ch2 Up Fs D - 4 Piece (Ibp), 80.90 88.90, CUST ITEM #: D4497AH",
+            "Weight": "169.80",
+            "Unit Price": "$4.32 LB",
+            "Extension": "$733.54"
+        },
+        {
+            "ORD/SHPP": "2/208",
+            "FRS/FRZ": "FRESH",
+            "Item#": "776474",
+            "Description": "Brisket Flat Ch Fs D- 85# Rim (lbp), 72.30 75.50, CUST ITEM #: D7137AH",
+            "Weight": "147.80",
+            "Unit Price": "$6.39 LB",
+            "Extension": "$944.44"
+        },
+        {
+            "ORD/SHPP": "10/10CS",
+            "FRS/FRZ": "FRESH",
+            "Item#": "701307",
+            "Description": "Chuckrot N/O Ch Fs D- 85# Rdm (Ibp), 58.30 5460 5200 72.80 49.30 62.80 5540 60.90 61.30 65.50, CUST ITEM # D1307AH",
+            "Weight": "592.90",
+            "Unit Price": "$4.60 LB",
+            "Extension": "$2,727.34"
+        },
+        {
+            "ORD/SHPP": "3/3¢S",
+            "FRS/FRZ": "FRESH",
+            "Item#": "127625",
+            "Description": "Eye Rnd Bim Ch Fs D- 12 Piece (tbp), 93.20 92.30 88.90, CUST ITEM # D6257AH",
+            "Weight": "274.40",
+            "Unit Price": "$3.86 LB",
+            "Extension": "$1,059.18"
+        }
