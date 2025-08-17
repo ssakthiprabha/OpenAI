@@ -1,0 +1,33 @@
+Jira Test Case Generator (POC)
+
+This POC demonstrates how Python + OpenAI can be leveraged to automate software testing workflows using Jira as the source of truth.
+
+🔹 Features
+
+Jira Integration – Fetch issue details, descriptions, and sub-tasks directly from a Jira ticket.
+
+AI-Powered Test Case Generation – Automatically generate well-structured test cases in preferred formats.
+
+Automation Code Snippets – Create reusable Selenium automation scripts based on generated test cases.
+
+Web Interface (Flask + HTML/JS) – Simple UI to input a Jira issue number and display AI-generated results.
+
+Reports & Visualization – Generate small graphs/charts for better understanding of test coverage.
+
+🔹 Tech Stack
+
+Python (Flask, Requests, Pandas)
+
+OpenAI GPT (for test case & code generation)
+
+Jira REST API
+
+HTML, CSS, JavaScript (for frontend UI)
+
+🔹 Use Cases
+
+QA teams looking to reduce manual effort in test case design.
+
+Agile projects where test automation needs to keep pace with rapidly changing Jira stories.
+
+POC for AI-driven QA automation in enterprise environments.
