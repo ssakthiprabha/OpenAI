@@ -1,0 +1,500 @@
+2025-07-06 07:25:22 [ERROR] [DatabaseConnection] Unable to connect to external service
+2025-07-06 07:25:52 [CRITICAL] [DatabaseConnection] File upload failed: invalid format
+2025-07-06 07:26:22 [ERROR] [PaymentProcessor] Failed to process payment for user ID: 6782
+2025-07-06 07:26:52 [ERROR] [EmailService] Unable to send email notification
+2025-07-06 07:27:22 [ERROR] [DatabaseConnection] Session expired for user: user_377
+2025-07-06 07:27:52 [INFO] [EmailService] Unable to send email notification
+2025-07-06 07:28:22 [DEBUG] [CacheManager] API rate limit exceeded
+2025-07-06 07:28:52 [ERROR] [DatabaseConnection] Memory usage exceeds 80% threshold
+2025-07-06 07:29:22 [ERROR] [UserService] API rate limit exceeded
+2025-07-06 07:29:52 [ERROR] [PaymentProcessor] Session expired for user: user_377
+2025-07-06 07:30:22 [WARN] [DatabaseConnection] Failed to process payment for user ID: 2958
+2025-07-06 07:30:52 [INFO] [EmailService] Unable to connect to external service
+2025-07-06 07:31:22 [CRITICAL] [DatabaseConnection] Unable to send email notification
+2025-07-06 07:31:52 [DEBUG] [UserService] Failed to process payment for user ID: 1390
+2025-07-06 07:32:22 [CRITICAL] [UserService] Unable to connect to external service
+2025-07-06 07:32:52 [DEBUG] [EmailService] Unable to send email notification
+2025-07-06 07:33:22 [CRITICAL] [DatabaseConnection] File upload failed: invalid format
+2025-07-06 07:33:52 [ERROR] [DatabaseConnection] Cache invalidation failed
+2025-07-06 07:34:22 [ERROR] [DatabaseConnection] Connection timeout to database
+2025-07-06 07:34:52 [WARN] [EmailService] Failed to process payment for user ID: 1779
+2025-07-06 07:35:22 [CRITICAL] [UserService] File upload failed: invalid format
+2025-07-06 07:35:52 [DEBUG] [UserService] Connection timeout to database
+2025-07-06 07:36:22 [ERROR] [EmailService] Memory usage exceeds 80% threshold
+2025-07-06 07:36:52 [INFO] [CacheManager] Failed to process payment for user ID: 5365
+2025-07-06 07:37:22 [WARN] [PaymentProcessor] File upload failed: invalid format
+2025-07-06 07:37:52 [ERROR] [UserService] Memory usage exceeds 80% threshold
+2025-07-06 07:38:22 [INFO] [EmailService] API rate limit exceeded
+2025-07-06 07:38:52 [ERROR] [UserService] Memory usage exceeds 80% threshold
+2025-07-06 07:39:22 [ERROR] [PaymentProcessor] Memory usage exceeds 80% threshold
+2025-07-06 07:39:52 [WARN] [DatabaseConnection] Memory usage exceeds 80% threshold
+2025-07-06 07:40:22 [ERROR] [UserService] Failed to process payment for user ID: 8459
+2025-07-06 07:40:52 [WARN] [DatabaseConnection] Unable to connect to external service
+2025-07-06 07:41:22 [DEBUG] [UserService] Failed to process payment for user ID: 7309
+2025-07-06 07:41:52 [ERROR] [DatabaseConnection] File upload failed: invalid format
+2025-07-06 07:42:22 [WARN] [DatabaseConnection] Failed to process payment for user ID: 7506
+2025-07-06 07:42:52 [ERROR] [CacheManager] Cache invalidation failed
+2025-07-06 07:43:22 [ERROR] [EmailService] Session expired for user: user_824
+2025-07-06 07:43:52 [WARN] [DatabaseConnection] Failed to process payment for user ID: 9571
+2025-07-06 07:44:22 [DEBUG] [UserService] File upload failed: invalid format
+2025-07-06 07:44:52 [INFO] [CacheManager] File upload failed: invalid format
+2025-07-06 07:45:22 [CRITICAL] [UserService] Unable to send email notification
+2025-07-06 07:45:52 [CRITICAL] [PaymentProcessor] Failed to process payment for user ID: 2979
+2025-07-06 07:46:22 [WARN] [EmailService] Connection timeout to database
+2025-07-06 07:46:52 [DEBUG] [CacheManager] API rate limit exceeded
+2025-07-06 07:47:22 [INFO] [CacheManager] API rate limit exceeded
+2025-07-06 07:47:52 [ERROR] [EmailService] File upload failed: invalid format
+2025-07-06 07:48:22 [CRITICAL] [EmailService] Cache invalidation failed
+2025-07-06 07:48:52 [ERROR] [PaymentProcessor] API rate limit exceeded
+2025-07-06 07:49:22 [ERROR] [CacheManager] Session expired for user: user_721
+2025-07-06 07:49:52 [ERROR] [EmailService] Memory usage exceeds 80% threshold
+2025-07-06 07:50:22 [CRITICAL] [EmailService] Unable to connect to external service
+2025-07-06 07:50:52 [CRITICAL] [UserService] Unable to send email notification
+2025-07-06 07:51:22 [CRITICAL] [UserService] Connection timeout to database
+2025-07-06 07:51:52 [WARN] [UserService] Failed to process payment for user ID: 5718
+2025-07-06 07:52:22 [DEBUG] [UserService] Unable to connect to external service
+2025-07-06 07:52:52 [CRITICAL] [DatabaseConnection] Session expired for user: user_301
+2025-07-06 07:53:22 [WARN] [UserService] API rate limit exceeded
+2025-07-06 07:53:52 [ERROR] [UserService] Session expired for user: user_419
+2025-07-06 07:54:22 [INFO] [EmailService] Unable to connect to external service
+2025-07-06 07:54:52 [DEBUG] [UserService] Session expired for user: user_141
+2025-07-06 07:55:22 [WARN] [EmailService] Unable to connect to external service
+2025-07-06 07:55:52 [WARN] [PaymentProcessor] Session expired for user: user_331
+2025-07-06 07:56:22 [WARN] [DatabaseConnection] Unable to send email notification
+2025-07-06 07:56:52 [ERROR] [UserService] Session expired for user: user_406
+2025-07-06 07:57:22 [ERROR] [DatabaseConnection] Failed to process payment for user ID: 7785
+2025-07-06 07:57:52 [DEBUG] [EmailService] Cache invalidation failed
+2025-07-06 07:58:22 [INFO] [CacheManager] Connection timeout to database
+2025-07-06 07:58:52 [WARN] [DatabaseConnection] Authentication failed for user: user_589
+2025-07-06 07:59:22 [WARN] [UserService] Unable to send email notification
+2025-07-06 07:59:52 [DEBUG] [UserService] Unable to connect to external service
+2025-07-06 08:00:22 [ERROR] [PaymentProcessor] Authentication failed for user: user_332
+2025-07-06 08:00:52 [DEBUG] [CacheManager] Connection timeout to database
+2025-07-06 08:01:22 [CRITICAL] [PaymentProcessor] File upload failed: invalid format
+2025-07-06 08:01:52 [WARN] [DatabaseConnection] Cache invalidation failed
+2025-07-06 08:02:22 [INFO] [EmailService] API rate limit exceeded
+2025-07-06 08:02:52 [ERROR] [DatabaseConnection] Connection timeout to database
+2025-07-06 08:03:22 [WARN] [UserService] File upload failed: invalid format
+2025-07-06 08:03:52 [INFO] [CacheManager] Unable to connect to external service
+2025-07-06 08:04:22 [DEBUG] [EmailService] Unable to connect to external service
+2025-07-06 08:04:52 [WARN] [UserService] API rate limit exceeded
+2025-07-06 08:05:22 [INFO] [UserService] Unable to connect to external service
+2025-07-06 08:05:52 [WARN] [DatabaseConnection] Memory usage exceeds 80% threshold
+2025-07-06 08:06:22 [ERROR] [PaymentProcessor] File upload failed: invalid format
+2025-07-06 08:06:52 [INFO] [CacheManager] Session expired for user: user_622
+2025-07-06 08:07:22 [DEBUG] [EmailService] Failed to process payment for user ID: 7518
+2025-07-06 08:07:52 [INFO] [CacheManager] Cache invalidation failed
+2025-07-06 08:08:22 [WARN] [DatabaseConnection] Memory usage exceeds 80% threshold
+2025-07-06 08:08:52 [WARN] [EmailService] Authentication failed for user: user_880
+2025-07-06 08:09:22 [CRITICAL] [PaymentProcessor] Failed to process payment for user ID: 2330
+2025-07-06 08:09:52 [CRITICAL] [PaymentProcessor] Unable to send email notification
+2025-07-06 08:10:22 [ERROR] [PaymentProcessor] Session expired for user: user_620
+2025-07-06 08:10:52 [WARN] [DatabaseConnection] API rate limit exceeded
+2025-07-06 08:11:22 [ERROR] [UserService] Memory usage exceeds 80% threshold
+2025-07-06 08:11:52 [ERROR] [EmailService] Memory usage exceeds 80% threshold
+2025-07-06 08:12:22 [WARN] [CacheManager] File upload failed: invalid format
+2025-07-06 08:12:52 [CRITICAL] [CacheManager] Unable to connect to external service
+2025-07-06 08:13:22 [ERROR] [PaymentProcessor] Authentication failed for user: user_708
+2025-07-06 08:13:52 [ERROR] [UserService] Session expired for user: user_161
+2025-07-06 08:14:22 [WARN] [EmailService] Session expired for user: user_502
+2025-07-06 08:14:52 [WARN] [DatabaseConnection] Unable to send email notification
+2025-07-06 08:15:22 [DEBUG] [CacheManager] Connection timeout to database
+2025-07-06 08:15:52 [DEBUG] [UserService] Connection timeout to database
+2025-07-06 08:16:22 [CRITICAL] [CacheManager] Unable to send email notification
+2025-07-06 08:16:52 [ERROR] [PaymentProcessor] Authentication failed for user: user_237
+2025-07-06 08:17:22 [ERROR] [CacheManager] Cache invalidation failed
+2025-07-06 08:17:52 [DEBUG] [CacheManager] Unable to connect to external service
+2025-07-06 08:18:22 [WARN] [PaymentProcessor] Memory usage exceeds 80% threshold
+2025-07-06 08:18:52 [DEBUG] [CacheManager] File upload failed: invalid format
+2025-07-06 08:19:22 [ERROR] [UserService] Memory usage exceeds 80% threshold
+2025-07-06 08:19:52 [ERROR] [CacheManager] Failed to process payment for user ID: 3118
+2025-07-06 08:20:22 [ERROR] [UserService] Authentication failed for user: user_579
+2025-07-06 08:20:52 [WARN] [PaymentProcessor] Unable to send email notification
+2025-07-06 08:21:22 [ERROR] [EmailService] Session expired for user: user_921
+2025-07-06 08:21:52 [CRITICAL] [PaymentProcessor] Authentication failed for user: user_376
+2025-07-06 08:22:22 [ERROR] [EmailService] Unable to connect to external service
+2025-07-06 08:22:52 [CRITICAL] [DatabaseConnection] Session expired for user: user_588
+2025-07-06 08:23:22 [ERROR] [UserService] Session expired for user: user_633
+2025-07-06 08:23:52 [WARN] [PaymentProcessor] Authentication failed for user: user_969
+2025-07-06 08:24:22 [DEBUG] [EmailService] Unable to send email notification
+2025-07-06 08:24:52 [WARN] [PaymentProcessor] API rate limit exceeded
+2025-07-06 08:25:22 [CRITICAL] [CacheManager] Memory usage exceeds 80% threshold
+2025-07-06 08:25:52 [CRITICAL] [DatabaseConnection] Cache invalidation failed
+2025-07-06 08:26:22 [CRITICAL] [DatabaseConnection] Connection timeout to database
+2025-07-06 08:26:52 [WARN] [CacheManager] Unable to send email notification
+2025-07-06 08:27:22 [ERROR] [UserService] File upload failed: invalid format
+2025-07-06 08:27:52 [DEBUG] [UserService] Authentication failed for user: user_315
+2025-07-06 08:28:22 [DEBUG] [CacheManager] Memory usage exceeds 80% threshold
+2025-07-06 08:28:52 [INFO] [UserService] Authentication failed for user: user_897
+2025-07-06 08:29:22 [DEBUG] [UserService] Session expired for user: user_614
+2025-07-06 08:29:52 [CRITICAL] [UserService] Authentication failed for user: user_704
+2025-07-06 08:30:22 [WARN] [CacheManager] Memory usage exceeds 80% threshold
+2025-07-06 08:30:52 [CRITICAL] [CacheManager] Unable to connect to external service
+2025-07-06 08:31:22 [CRITICAL] [UserService] Authentication failed for user: user_902
+2025-07-06 08:31:52 [WARN] [CacheManager] Session expired for user: user_785
+2025-07-06 08:32:22 [CRITICAL] [DatabaseConnection] Cache invalidation failed
+2025-07-06 08:32:52 [CRITICAL] [PaymentProcessor] File upload failed: invalid format
+2025-07-06 08:33:22 [ERROR] [DatabaseConnection] API rate limit exceeded
+2025-07-06 08:33:52 [ERROR] [UserService] Memory usage exceeds 80% threshold
+2025-07-06 08:34:22 [ERROR] [UserService] API rate limit exceeded
+2025-07-06 08:34:52 [CRITICAL] [DatabaseConnection] Failed to process payment for user ID: 2052
+2025-07-06 08:35:22 [CRITICAL] [UserService] API rate limit exceeded
+2025-07-06 08:35:52 [CRITICAL] [UserService] Connection timeout to database
+2025-07-06 08:36:22 [CRITICAL] [DatabaseConnection] Cache invalidation failed
+2025-07-06 08:36:52 [ERROR] [DatabaseConnection] Cache invalidation failed
+2025-07-06 08:37:22 [ERROR] [DatabaseConnection] File upload failed: invalid format
+2025-07-06 08:37:52 [CRITICAL] [UserService] Cache invalidation failed
+2025-07-06 08:38:22 [INFO] [CacheManager] File upload failed: invalid format
+2025-07-06 08:38:52 [INFO] [UserService] File upload failed: invalid format
+2025-07-06 08:39:22 [CRITICAL] [PaymentProcessor] API rate limit exceeded
+2025-07-06 08:39:52 [WARN] [DatabaseConnection] Authentication failed for user: user_990
+2025-07-06 08:40:22 [ERROR] [DatabaseConnection] Failed to process payment for user ID: 9153
+2025-07-06 08:40:52 [DEBUG] [CacheManager] Unable to send email notification
+2025-07-06 08:41:22 [WARN] [EmailService] Session expired for user: user_283
+2025-07-06 08:41:52 [WARN] [CacheManager] Authentication failed for user: user_809
+2025-07-06 08:42:22 [INFO] [UserService] API rate limit exceeded
+2025-07-06 08:42:52 [WARN] [EmailService] Authentication failed for user: user_457
+2025-07-06 08:43:22 [CRITICAL] [PaymentProcessor] Unable to send email notification
+2025-07-06 08:43:52 [DEBUG] [UserService] Memory usage exceeds 80% threshold
+2025-07-06 08:44:22 [INFO] [UserService] Session expired for user: user_368
+2025-07-06 08:44:52 [CRITICAL] [PaymentProcessor] Memory usage exceeds 80% threshold
+2025-07-06 08:45:22 [ERROR] [UserService] Session expired for user: user_878
+2025-07-06 08:45:52 [ERROR] [EmailService] Connection timeout to database
+2025-07-06 08:46:22 [DEBUG] [UserService] Cache invalidation failed
+2025-07-06 08:46:52 [CRITICAL] [EmailService] Failed to process payment for user ID: 8590
+2025-07-06 08:47:22 [DEBUG] [UserService] Unable to connect to external service
+2025-07-06 08:47:52 [ERROR] [UserService] Connection timeout to database
+2025-07-06 08:48:22 [WARN] [UserService] Session expired for user: user_985
+2025-07-06 08:48:52 [CRITICAL] [UserService] Session expired for user: user_883
+2025-07-06 08:49:22 [DEBUG] [CacheManager] Unable to connect to external service
+2025-07-06 08:49:52 [CRITICAL] [PaymentProcessor] API rate limit exceeded
+2025-07-06 08:50:22 [ERROR] [PaymentProcessor] Memory usage exceeds 80% threshold
+2025-07-06 08:50:52 [CRITICAL] [DatabaseConnection] Authentication failed for user: user_454
+2025-07-06 08:51:22 [CRITICAL] [UserService] Authentication failed for user: user_877
+2025-07-06 08:51:52 [CRITICAL] [PaymentProcessor] Connection timeout to database
+2025-07-06 08:52:22 [INFO] [CacheManager] Unable to send email notification
+2025-07-06 08:52:52 [ERROR] [DatabaseConnection] File upload failed: invalid format
+2025-07-06 08:53:22 [ERROR] [DatabaseConnection] API rate limit exceeded
+2025-07-06 08:53:52 [CRITICAL] [EmailService] Failed to process payment for user ID: 2050
+2025-07-06 08:54:22 [INFO] [CacheManager] File upload failed: invalid format
+2025-07-06 08:54:52 [CRITICAL] [PaymentProcessor] Cache invalidation failed
+2025-07-06 08:55:22 [WARN] [CacheManager] API rate limit exceeded
+2025-07-06 08:55:52 [WARN] [EmailService] Cache invalidation failed
+2025-07-06 08:56:22 [CRITICAL] [PaymentProcessor] Unable to connect to external service
+2025-07-06 08:56:52 [WARN] [UserService] Unable to send email notification
+2025-07-06 08:57:22 [CRITICAL] [UserService] Session expired for user: user_413
+2025-07-06 08:57:52 [CRITICAL] [DatabaseConnection] Memory usage exceeds 80% threshold
+2025-07-06 08:58:22 [DEBUG] [EmailService] Session expired for user: user_499
+2025-07-06 08:58:52 [CRITICAL] [DatabaseConnection] Unable to send email notification
+2025-07-06 08:59:22 [DEBUG] [CacheManager] File upload failed: invalid format
+2025-07-06 08:59:52 [WARN] [PaymentProcessor] Session expired for user: user_891
+2025-07-06 09:00:22 [DEBUG] [CacheManager] Memory usage exceeds 80% threshold
+2025-07-06 09:00:52 [CRITICAL] [DatabaseConnection] Cache invalidation failed
+2025-07-06 09:01:22 [WARN] [PaymentProcessor] Connection timeout to database
+2025-07-06 09:01:52 [WARN] [CacheManager] File upload failed: invalid format
+2025-07-06 09:02:22 [CRITICAL] [PaymentProcessor] Session expired for user: user_340
+2025-07-06 09:02:52 [ERROR] [CacheManager] Authentication failed for user: user_490
+2025-07-06 09:03:22 [WARN] [DatabaseConnection] Unable to connect to external service
+2025-07-06 09:03:52 [ERROR] [PaymentProcessor] Unable to connect to external service
+2025-07-06 09:04:22 [CRITICAL] [PaymentProcessor] Memory usage exceeds 80% threshold
+2025-07-06 09:04:52 [CRITICAL] [CacheManager] File upload failed: invalid format
+2025-07-06 09:05:22 [DEBUG] [UserService] Authentication failed for user: user_276
+2025-07-06 09:05:52 [ERROR] [PaymentProcessor] File upload failed: invalid format
+2025-07-06 09:06:22 [INFO] [CacheManager] Cache invalidation failed
+2025-07-06 09:06:52 [WARN] [EmailService] API rate limit exceeded
+2025-07-06 09:07:22 [ERROR] [EmailService] Memory usage exceeds 80% threshold
+2025-07-06 09:07:52 [CRITICAL] [CacheManager] Unable to send email notification
+2025-07-06 09:08:22 [WARN] [EmailService] Session expired for user: user_909
+2025-07-06 09:08:52 [ERROR] [PaymentProcessor] Authentication failed for user: user_870
+2025-07-06 09:09:22 [WARN] [DatabaseConnection] Authentication failed for user: user_695
+2025-07-06 09:09:52 [WARN] [CacheManager] API rate limit exceeded
+2025-07-06 09:10:22 [WARN] [PaymentProcessor] API rate limit exceeded
+2025-07-06 09:10:52 [CRITICAL] [DatabaseConnection] API rate limit exceeded
+2025-07-06 09:11:22 [DEBUG] [UserService] Session expired for user: user_163
+2025-07-06 09:11:52 [ERROR] [CacheManager] Failed to process payment for user ID: 2230
+2025-07-06 09:12:22 [ERROR] [UserService] Memory usage exceeds 80% threshold
+2025-07-06 09:12:52 [DEBUG] [UserService] Unable to connect to external service
+2025-07-06 09:13:22 [WARN] [PaymentProcessor] Unable to connect to external service
+2025-07-06 09:13:52 [CRITICAL] [EmailService] Cache invalidation failed
+2025-07-06 09:14:22 [CRITICAL] [PaymentProcessor] Cache invalidation failed
+2025-07-06 09:14:52 [INFO] [CacheManager] Failed to process payment for user ID: 9925
+2025-07-06 09:15:22 [WARN] [DatabaseConnection] Failed to process payment for user ID: 3109
+2025-07-06 09:15:52 [WARN] [EmailService] Cache invalidation failed
+2025-07-06 09:16:22 [CRITICAL] [PaymentProcessor] API rate limit exceeded
+2025-07-06 09:16:52 [WARN] [UserService] File upload failed: invalid format
+2025-07-06 09:17:22 [ERROR] [PaymentProcessor] Cache invalidation failed
+2025-07-06 09:17:52 [ERROR] [DatabaseConnection] Cache invalidation failed
+2025-07-06 09:18:22 [WARN] [EmailService] Cache invalidation failed
+2025-07-06 09:18:52 [WARN] [DatabaseConnection] Cache invalidation failed
+2025-07-06 09:19:22 [CRITICAL] [CacheManager] Authentication failed for user: user_566
+2025-07-06 09:19:52 [CRITICAL] [CacheManager] API rate limit exceeded
+2025-07-06 09:20:22 [WARN] [PaymentProcessor] API rate limit exceeded
+2025-07-06 09:20:52 [WARN] [PaymentProcessor] Connection timeout to database
+2025-07-06 09:21:22 [WARN] [DatabaseConnection] Cache invalidation failed
+2025-07-06 09:21:52 [CRITICAL] [PaymentProcessor] Unable to connect to external service
+2025-07-06 09:22:22 [ERROR] [DatabaseConnection] API rate limit exceeded
+2025-07-06 09:22:52 [CRITICAL] [PaymentProcessor] Cache invalidation failed
+2025-07-06 09:23:22 [INFO] [CacheManager] File upload failed: invalid format
+2025-07-06 09:23:52 [WARN] [UserService] Authentication failed for user: user_920
+2025-07-06 09:24:22 [WARN] [UserService] Connection timeout to database
+2025-07-06 09:24:52 [ERROR] [PaymentProcessor] Connection timeout to database
+2025-07-06 09:25:22 [WARN] [PaymentProcessor] File upload failed: invalid format
+2025-07-06 09:25:52 [DEBUG] [EmailService] Unable to send email notification
+2025-07-06 09:26:22 [CRITICAL] [UserService] File upload failed: invalid format
+2025-07-06 09:26:52 [ERROR] [UserService] API rate limit exceeded
+2025-07-06 09:27:22 [DEBUG] [CacheManager] Unable to connect to external service
+2025-07-06 09:27:52 [DEBUG] [UserService] API rate limit exceeded
+2025-07-06 09:28:22 [CRITICAL] [CacheManager] Failed to process payment for user ID: 7061
+2025-07-06 09:28:52 [CRITICAL] [CacheManager] Failed to process payment for user ID: 1633
+2025-07-06 09:29:22 [DEBUG] [CacheManager] Memory usage exceeds 80% threshold
+2025-07-06 09:29:52 [ERROR] [EmailService] Authentication failed for user: user_111
+2025-07-06 09:30:22 [CRITICAL] [DatabaseConnection] Authentication failed for user: user_154
+2025-07-06 09:30:52 [DEBUG] [UserService] Connection timeout to database
+2025-07-06 09:31:22 [ERROR] [CacheManager] Memory usage exceeds 80% threshold
+2025-07-06 09:31:52 [ERROR] [DatabaseConnection] File upload failed: invalid format
+2025-07-06 09:32:22 [ERROR] [CacheManager] Unable to connect to external service
+2025-07-06 09:32:52 [ERROR] [PaymentProcessor] Failed to process payment for user ID: 2759
+2025-07-06 09:33:22 [ERROR] [DatabaseConnection] File upload failed: invalid format
+2025-07-06 09:33:52 [WARN] [PaymentProcessor] File upload failed: invalid format
+2025-07-06 09:34:22 [CRITICAL] [EmailService] Connection timeout to database
+2025-07-06 09:34:52 [WARN] [PaymentProcessor] Unable to send email notification
+2025-07-06 09:35:22 [DEBUG] [CacheManager] Cache invalidation failed
+2025-07-06 09:35:52 [WARN] [UserService] File upload failed: invalid format
+2025-07-06 09:36:22 [ERROR] [PaymentProcessor] File upload failed: invalid format
+2025-07-06 09:36:52 [ERROR] [EmailService] API rate limit exceeded
+2025-07-06 09:37:22 [CRITICAL] [UserService] Session expired for user: user_339
+2025-07-06 09:37:52 [ERROR] [DatabaseConnection] Session expired for user: user_443
+2025-07-06 09:38:22 [CRITICAL] [UserService] Authentication failed for user: user_994
+2025-07-06 09:38:52 [WARN] [CacheManager] Failed to process payment for user ID: 6012
+2025-07-06 09:39:22 [CRITICAL] [PaymentProcessor] Memory usage exceeds 80% threshold
+2025-07-06 09:39:52 [ERROR] [DatabaseConnection] Unable to send email notification
+2025-07-06 09:40:22 [INFO] [CacheManager] Connection timeout to database
+2025-07-06 09:40:52 [CRITICAL] [UserService] Authentication failed for user: user_285
+2025-07-06 09:41:22 [INFO] [EmailService] Cache invalidation failed
+2025-07-06 09:41:52 [WARN] [UserService] Authentication failed for user: user_512
+2025-07-06 09:42:22 [INFO] [CacheManager] File upload failed: invalid format
+2025-07-06 09:42:52 [ERROR] [DatabaseConnection] File upload failed: invalid format
+2025-07-06 09:43:22 [WARN] [CacheManager] Session expired for user: user_365
+2025-07-06 09:43:52 [ERROR] [CacheManager] Unable to send email notification
+2025-07-06 09:44:22 [DEBUG] [UserService] Session expired for user: user_640
+2025-07-06 09:44:52 [WARN] [PaymentProcessor] Session expired for user: user_250
+2025-07-06 09:45:22 [WARN] [PaymentProcessor] Session expired for user: user_186
+2025-07-06 09:45:52 [INFO] [EmailService] Unable to connect to external service
+2025-07-06 09:46:22 [CRITICAL] [DatabaseConnection] Cache invalidation failed
+2025-07-06 09:46:52 [CRITICAL] [CacheManager] Unable to send email notification
+2025-07-06 09:47:22 [ERROR] [DatabaseConnection] Session expired for user: user_357
+2025-07-06 09:47:52 [WARN] [CacheManager] Unable to send email notification
+2025-07-06 09:48:22 [WARN] [UserService] Unable to send email notification
+2025-07-06 09:48:52 [ERROR] [DatabaseConnection] Cache invalidation failed
+2025-07-06 09:49:22 [INFO] [EmailService] Unable to connect to external service
+2025-07-06 09:49:52 [CRITICAL] [UserService] Cache invalidation failed
+2025-07-06 09:50:22 [ERROR] [UserService] Failed to process payment for user ID: 4434
+2025-07-06 09:50:52 [WARN] [PaymentProcessor] Failed to process payment for user ID: 6097
+2025-07-06 09:51:22 [INFO] [UserService] Cache invalidation failed
+2025-07-06 09:51:52 [INFO] [CacheManager] Memory usage exceeds 80% threshold
+2025-07-06 09:52:22 [DEBUG] [EmailService] Connection timeout to database
+2025-07-06 09:52:52 [CRITICAL] [DatabaseConnection] Failed to process payment for user ID: 8446
+2025-07-06 09:53:22 [INFO] [CacheManager] Cache invalidation failed
+2025-07-06 09:53:52 [INFO] [CacheManager] Failed to process payment for user ID: 5206
+2025-07-06 09:54:22 [DEBUG] [CacheManager] Memory usage exceeds 80% threshold
+2025-07-06 09:54:52 [DEBUG] [EmailService] Failed to process payment for user ID: 3661
+2025-07-06 09:55:22 [DEBUG] [CacheManager] File upload failed: invalid format
+2025-07-06 09:55:52 [INFO] [CacheManager] Authentication failed for user: user_970
+2025-07-06 09:56:22 [WARN] [PaymentProcessor] Unable to connect to external service
+2025-07-06 09:56:52 [CRITICAL] [PaymentProcessor] Cache invalidation failed
+2025-07-06 09:57:22 [ERROR] [PaymentProcessor] Connection timeout to database
+2025-07-06 09:57:52 [ERROR] [CacheManager] API rate limit exceeded
+2025-07-06 09:58:22 [INFO] [EmailService] Connection timeout to database
+2025-07-06 09:58:52 [DEBUG] [EmailService] Connection timeout to database
+2025-07-06 09:59:22 [ERROR] [DatabaseConnection] Authentication failed for user: user_306
+2025-07-06 09:59:52 [WARN] [EmailService] Unable to connect to external service
+2025-07-06 10:00:22 [WARN] [CacheManager] Memory usage exceeds 80% threshold
+2025-07-06 10:00:52 [CRITICAL] [PaymentProcessor] Connection timeout to database
+2025-07-06 10:01:22 [WARN] [DatabaseConnection] Session expired for user: user_621
+2025-07-06 10:01:52 [WARN] [DatabaseConnection] Unable to connect to external service
+2025-07-06 10:02:22 [ERROR] [CacheManager] Session expired for user: user_252
+2025-07-06 10:02:52 [ERROR] [EmailService] Authentication failed for user: user_784
+2025-07-06 10:03:22 [WARN] [PaymentProcessor] File upload failed: invalid format
+2025-07-06 10:03:52 [WARN] [DatabaseConnection] Cache invalidation failed
+2025-07-06 10:04:22 [ERROR] [UserService] Unable to send email notification
+2025-07-06 10:04:52 [ERROR] [EmailService] Cache invalidation failed
+2025-07-06 10:05:22 [CRITICAL] [PaymentProcessor] Memory usage exceeds 80% threshold
+2025-07-06 10:05:52 [ERROR] [CacheManager] Unable to send email notification
+2025-07-06 10:06:22 [CRITICAL] [EmailService] Session expired for user: user_824
+2025-07-06 10:06:52 [INFO] [CacheManager] Connection timeout to database
+2025-07-06 10:07:22 [DEBUG] [CacheManager] Unable to send email notification
+2025-07-06 10:07:52 [CRITICAL] [UserService] Memory usage exceeds 80% threshold
+2025-07-06 10:08:22 [DEBUG] [UserService] Memory usage exceeds 80% threshold
+2025-07-06 10:08:52 [WARN] [EmailService] Memory usage exceeds 80% threshold
+2025-07-06 10:09:22 [ERROR] [DatabaseConnection] Authentication failed for user: user_631
+2025-07-06 10:09:52 [WARN] [EmailService] Authentication failed for user: user_750
+2025-07-06 10:10:22 [WARN] [UserService] Session expired for user: user_803
+2025-07-06 10:10:52 [WARN] [PaymentProcessor] Memory usage exceeds 80% threshold
+2025-07-06 10:11:22 [ERROR] [UserService] Cache invalidation failed
+2025-07-06 10:11:52 [DEBUG] [EmailService] Authentication failed for user: user_840
+2025-07-06 10:12:22 [ERROR] [DatabaseConnection] Unable to send email notification
+2025-07-06 10:12:52 [ERROR] [PaymentProcessor] API rate limit exceeded
+2025-07-06 10:13:22 [DEBUG] [UserService] Connection timeout to database
+2025-07-06 10:13:52 [WARN] [CacheManager] API rate limit exceeded
+2025-07-06 10:14:22 [ERROR] [CacheManager] Connection timeout to database
+2025-07-06 10:14:52 [WARN] [EmailService] Cache invalidation failed
+2025-07-06 10:15:22 [CRITICAL] [CacheManager] Session expired for user: user_292
+2025-07-06 10:15:52 [DEBUG] [CacheManager] Failed to process payment for user ID: 8180
+2025-07-06 10:16:22 [WARN] [UserService] File upload failed: invalid format
+2025-07-06 10:16:52 [CRITICAL] [DatabaseConnection] Memory usage exceeds 80% threshold
+2025-07-06 10:17:22 [DEBUG] [EmailService] Failed to process payment for user ID: 6594
+2025-07-06 10:17:52 [DEBUG] [EmailService] Session expired for user: user_329
+2025-07-06 10:18:22 [DEBUG] [CacheManager] API rate limit exceeded
+2025-07-06 10:18:52 [ERROR] [EmailService] Unable to connect to external service
+2025-07-06 10:19:22 [WARN] [DatabaseConnection] Unable to connect to external service
+2025-07-06 10:19:52 [ERROR] [EmailService] Connection timeout to database
+2025-07-06 10:20:22 [ERROR] [UserService] Unable to send email notification
+2025-07-06 10:20:52 [WARN] [DatabaseConnection] Memory usage exceeds 80% threshold
+2025-07-06 10:21:22 [WARN] [PaymentProcessor] Authentication failed for user: user_553
+2025-07-06 10:21:52 [DEBUG] [UserService] Unable to connect to external service
+2025-07-06 10:22:22 [ERROR] [PaymentProcessor] Memory usage exceeds 80% threshold
+2025-07-06 10:22:52 [DEBUG] [CacheManager] API rate limit exceeded
+2025-07-06 10:23:22 [CRITICAL] [CacheManager] Cache invalidation failed
+2025-07-06 10:23:52 [CRITICAL] [UserService] Authentication failed for user: user_675
+2025-07-06 10:24:22 [DEBUG] [EmailService] Unable to send email notification
+2025-07-06 10:24:52 [WARN] [PaymentProcessor] Connection timeout to database
+2025-07-06 10:25:22 [CRITICAL] [DatabaseConnection] Unable to send email notification
+2025-07-06 10:25:52 [INFO] [UserService] Cache invalidation failed
+2025-07-06 10:26:22 [DEBUG] [CacheManager] File upload failed: invalid format
+2025-07-06 10:26:52 [CRITICAL] [DatabaseConnection] Cache invalidation failed
+2025-07-06 10:27:22 [ERROR] [DatabaseConnection] Connection timeout to database
+2025-07-06 10:27:52 [ERROR] [PaymentProcessor] Unable to connect to external service
+2025-07-06 10:28:22 [CRITICAL] [DatabaseConnection] Unable to connect to external service
+2025-07-06 10:28:52 [CRITICAL] [PaymentProcessor] Unable to send email notification
+2025-07-06 10:29:22 [WARN] [DatabaseConnection] Unable to connect to external service
+2025-07-06 10:29:52 [ERROR] [PaymentProcessor] Session expired for user: user_778
+2025-07-06 10:30:22 [WARN] [CacheManager] Session expired for user: user_381
+2025-07-06 10:30:52 [ERROR] [DatabaseConnection] Authentication failed for user: user_595
+2025-07-06 10:31:22 [DEBUG] [UserService] Session expired for user: user_303
+2025-07-06 10:31:52 [CRITICAL] [DatabaseConnection] Failed to process payment for user ID: 2163
+2025-07-06 10:32:22 [CRITICAL] [PaymentProcessor] API rate limit exceeded
+2025-07-06 10:32:52 [ERROR] [PaymentProcessor] Cache invalidation failed
+2025-07-06 10:33:22 [ERROR] [DatabaseConnection] Authentication failed for user: user_138
+2025-07-06 10:33:52 [CRITICAL] [PaymentProcessor] Cache invalidation failed
+2025-07-06 10:34:22 [ERROR] [PaymentProcessor] Unable to send email notification
+2025-07-06 10:34:52 [WARN] [PaymentProcessor] Cache invalidation failed
+2025-07-06 10:35:22 [DEBUG] [CacheManager] Connection timeout to database
+2025-07-06 10:35:52 [DEBUG] [CacheManager] Unable to send email notification
+2025-07-06 10:36:22 [CRITICAL] [DatabaseConnection] Cache invalidation failed
+2025-07-06 10:36:52 [WARN] [PaymentProcessor] Authentication failed for user: user_313
+2025-07-06 10:37:22 [WARN] [EmailService] Connection timeout to database
+2025-07-06 10:37:52 [CRITICAL] [UserService] Unable to send email notification
+2025-07-06 10:38:22 [WARN] [DatabaseConnection] API rate limit exceeded
+2025-07-06 10:38:52 [INFO] [UserService] Cache invalidation failed
+2025-07-06 10:39:22 [ERROR] [DatabaseConnection] Authentication failed for user: user_136
+2025-07-06 10:39:52 [DEBUG] [UserService] Cache invalidation failed
+2025-07-06 10:40:22 [CRITICAL] [UserService] Memory usage exceeds 80% threshold
+2025-07-06 10:40:52 [WARN] [UserService] Failed to process payment for user ID: 6051
+2025-07-06 10:41:22 [WARN] [CacheManager] Authentication failed for user: user_440
+2025-07-06 10:41:52 [DEBUG] [CacheManager] Session expired for user: user_113
+2025-07-06 10:42:22 [CRITICAL] [UserService] API rate limit exceeded
+2025-07-06 10:42:52 [CRITICAL] [DatabaseConnection] Authentication failed for user: user_111
+2025-07-06 10:43:22 [WARN] [DatabaseConnection] Session expired for user: user_215
+2025-07-06 10:43:52 [ERROR] [PaymentProcessor] File upload failed: invalid format
+2025-07-06 10:44:22 [CRITICAL] [DatabaseConnection] Memory usage exceeds 80% threshold
+2025-07-06 10:44:52 [CRITICAL] [CacheManager] Unable to send email notification
+2025-07-06 10:45:22 [INFO] [CacheManager] Connection timeout to database
+2025-07-06 10:45:52 [CRITICAL] [EmailService] Authentication failed for user: user_860
+2025-07-06 10:46:22 [WARN] [UserService] Unable to connect to external service
+2025-07-06 10:46:52 [ERROR] [EmailService] Failed to process payment for user ID: 1217
+2025-07-06 10:47:22 [CRITICAL] [EmailService] Unable to send email notification
+2025-07-06 10:47:52 [DEBUG] [CacheManager] Session expired for user: user_110
+2025-07-06 10:48:22 [CRITICAL] [PaymentProcessor] Failed to process payment for user ID: 3710
+2025-07-06 10:48:52 [WARN] [PaymentProcessor] Connection timeout to database
+2025-07-06 10:49:22 [ERROR] [PaymentProcessor] File upload failed: invalid format
+2025-07-06 10:49:52 [WARN] [CacheManager] Session expired for user: user_433
+2025-07-06 10:50:22 [INFO] [CacheManager] Session expired for user: user_969
+2025-07-06 10:50:52 [CRITICAL] [CacheManager] Authentication failed for user: user_158
+2025-07-06 10:51:22 [ERROR] [UserService] Cache invalidation failed
+2025-07-06 10:51:52 [DEBUG] [UserService] Unable to connect to external service
+2025-07-06 10:52:22 [CRITICAL] [PaymentProcessor] Connection timeout to database
+2025-07-06 10:52:52 [WARN] [CacheManager] Memory usage exceeds 80% threshold
+2025-07-06 10:53:22 [ERROR] [UserService] Memory usage exceeds 80% threshold
+2025-07-06 10:53:52 [DEBUG] [UserService] File upload failed: invalid format
+2025-07-06 10:54:22 [CRITICAL] [CacheManager] Session expired for user: user_526
+2025-07-06 10:54:52 [ERROR] [EmailService] Unable to send email notification
+2025-07-06 10:55:22 [DEBUG] [EmailService] Unable to connect to external service
+2025-07-06 10:55:52 [DEBUG] [UserService] Memory usage exceeds 80% threshold
+2025-07-06 10:56:22 [CRITICAL] [PaymentProcessor] Memory usage exceeds 80% threshold
+2025-07-06 10:56:52 [ERROR] [PaymentProcessor] Connection timeout to database
+2025-07-06 10:57:22 [ERROR] [PaymentProcessor] Failed to process payment for user ID: 6404
+2025-07-06 10:57:52 [WARN] [PaymentProcessor] Memory usage exceeds 80% threshold
+2025-07-06 10:58:22 [ERROR] [CacheManager] File upload failed: invalid format
+2025-07-06 10:58:52 [DEBUG] [UserService] File upload failed: invalid format
+2025-07-06 10:59:22 [WARN] [DatabaseConnection] Authentication failed for user: user_601
+2025-07-06 10:59:52 [WARN] [DatabaseConnection] Unable to connect to external service
+2025-07-06 11:00:22 [WARN] [CacheManager] Connection timeout to database
+2025-07-06 11:00:52 [DEBUG] [EmailService] Unable to send email notification
+2025-07-06 11:01:22 [WARN] [UserService] File upload failed: invalid format
+2025-07-06 11:01:52 [ERROR] [DatabaseConnection] Unable to send email notification
+2025-07-06 11:02:22 [DEBUG] [EmailService] Session expired for user: user_202
+2025-07-06 11:02:52 [ERROR] [EmailService] Unable to send email notification
+2025-07-06 11:03:22 [DEBUG] [EmailService] Session expired for user: user_247
+2025-07-06 11:03:52 [CRITICAL] [EmailService] Cache invalidation failed
+2025-07-06 11:04:22 [WARN] [UserService] API rate limit exceeded
+2025-07-06 11:04:52 [ERROR] [DatabaseConnection] API rate limit exceeded
+2025-07-06 11:05:22 [CRITICAL] [EmailService] File upload failed: invalid format
+2025-07-06 11:05:52 [ERROR] [DatabaseConnection] Authentication failed for user: user_738
+2025-07-06 11:06:22 [ERROR] [DatabaseConnection] Cache invalidation failed
+2025-07-06 11:06:52 [ERROR] [CacheManager] Unable to send email notification
+2025-07-06 11:07:22 [INFO] [UserService] Unable to connect to external service
+2025-07-06 11:07:52 [ERROR] [UserService] Memory usage exceeds 80% threshold
+2025-07-06 11:08:22 [INFO] [EmailService] API rate limit exceeded
+2025-07-06 11:08:52 [INFO] [EmailService] Authentication failed for user: user_848
+2025-07-06 11:09:22 [ERROR] [PaymentProcessor] Memory usage exceeds 80% threshold
+2025-07-06 11:09:52 [CRITICAL] [DatabaseConnection] Connection timeout to database
+2025-07-06 11:10:22 [ERROR] [PaymentProcessor] Connection timeout to database
+2025-07-06 11:10:52 [INFO] [CacheManager] Connection timeout to database
+2025-07-06 11:11:22 [ERROR] [PaymentProcessor] Unable to send email notification
+2025-07-06 11:11:52 [INFO] [EmailService] Authentication failed for user: user_353
+2025-07-06 11:12:22 [WARN] [UserService] Failed to process payment for user ID: 6793
+2025-07-06 11:12:52 [ERROR] [UserService] Session expired for user: user_490
+2025-07-06 11:13:22 [ERROR] [CacheManager] Unable to send email notification
+2025-07-06 11:13:52 [WARN] [DatabaseConnection] API rate limit exceeded
+2025-07-06 11:14:22 [WARN] [CacheManager] Unable to send email notification
+2025-07-06 11:14:52 [WARN] [PaymentProcessor] Unable to send email notification
+2025-07-06 11:15:22 [WARN] [EmailService] Memory usage exceeds 80% threshold
+2025-07-06 11:15:52 [INFO] [EmailService] Unable to send email notification
+2025-07-06 11:16:22 [WARN] [UserService] Unable to send email notification
+2025-07-06 11:16:52 [CRITICAL] [PaymentProcessor] Memory usage exceeds 80% threshold
+2025-07-06 11:17:22 [CRITICAL] [DatabaseConnection] Memory usage exceeds 80% threshold
+2025-07-06 11:17:52 [WARN] [PaymentProcessor] API rate limit exceeded
+2025-07-06 11:18:22 [DEBUG] [UserService] Cache invalidation failed
+2025-07-06 11:18:52 [WARN] [CacheManager] File upload failed: invalid format
+2025-07-06 11:19:22 [CRITICAL] [EmailService] File upload failed: invalid format
+2025-07-06 11:19:52 [CRITICAL] [EmailService] Cache invalidation failed
+2025-07-06 11:20:22 [ERROR] [PaymentProcessor] Cache invalidation failed
+2025-07-06 11:20:52 [CRITICAL] [UserService] Authentication failed for user: user_863
+2025-07-06 11:21:22 [INFO] [EmailService] Connection timeout to database
+2025-07-06 11:21:52 [ERROR] [EmailService] Memory usage exceeds 80% threshold
+2025-07-06 11:22:22 [ERROR] [DatabaseConnection] Cache invalidation failed
+2025-07-06 11:22:52 [CRITICAL] [PaymentProcessor] Session expired for user: user_182
+2025-07-06 11:23:22 [CRITICAL] [PaymentProcessor] Unable to connect to external service
+2025-07-06 11:23:52 [ERROR] [PaymentProcessor] Failed to process payment for user ID: 2299
+2025-07-06 11:24:22 [WARN] [UserService] Unable to send email notification
+2025-07-06 11:24:52 [WARN] [UserService] Failed to process payment for user ID: 9758
+2025-07-06 11:25:22 [CRITICAL] [PaymentProcessor] Connection timeout to database
+2025-07-06 11:25:52 [CRITICAL] [UserService] Memory usage exceeds 80% threshold
+2025-07-06 11:26:22 [CRITICAL] [UserService] File upload failed: invalid format
+2025-07-06 11:26:52 [CRITICAL] [PaymentProcessor] Memory usage exceeds 80% threshold
+2025-07-06 11:27:22 [ERROR] [PaymentProcessor] Unable to send email notification
+2025-07-06 11:27:52 [CRITICAL] [PaymentProcessor] API rate limit exceeded
+2025-07-06 11:28:22 [CRITICAL] [PaymentProcessor] API rate limit exceeded
+2025-07-06 11:28:52 [ERROR] [UserService] API rate limit exceeded
+2025-07-06 11:29:22 [CRITICAL] [CacheManager] Memory usage exceeds 80% threshold
+2025-07-06 11:29:52 [ERROR] [UserService] Unable to send email notification
+2025-07-06 11:30:22 [CRITICAL] [PaymentProcessor] Session expired for user: user_180
+2025-07-06 11:30:52 [WARN] [PaymentProcessor] API rate limit exceeded
+2025-07-06 11:31:22 [ERROR] [DatabaseConnection] API rate limit exceeded
+2025-07-06 11:31:52 [ERROR] [PaymentProcessor] Memory usage exceeds 80% threshold
+2025-07-06 11:32:22 [ERROR] [DatabaseConnection] File upload failed: invalid format
+2025-07-06 11:32:52 [ERROR] [EmailService] API rate limit exceeded
+2025-07-06 11:33:22 [DEBUG] [CacheManager] Connection timeout to database
+2025-07-06 11:33:52 [CRITICAL] [EmailService] Memory usage exceeds 80% threshold
+2025-07-06 11:34:22 [INFO] [CacheManager] Authentication failed for user: user_353
+2025-07-06 11:34:52 [INFO] [UserService] File upload failed: invalid format

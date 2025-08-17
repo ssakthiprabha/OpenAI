@@ -1,0 +1,300 @@
+Jul 06 13:25:22 server01 mysql: Service stopped unexpectedly
+Jul 06 13:26:22 server01 nginx: CPU usage: 63%
+Jul 06 13:27:22 server01 cron: CPU usage: 33%
+Jul 06 13:28:22 server01 mysql: Failed to start service: cron
+Jul 06 13:29:22 server01 apache2: Failed to start service: cron
+Jul 06 13:30:22 server01 cron: Service stopped unexpectedly
+Jul 06 13:31:22 server01 mysql: Backup completed successfully
+Jul 06 13:32:22 server01 nginx: Service stopped unexpectedly
+Jul 06 13:33:22 server01 redis: Service started successfully
+Jul 06 13:34:22 server01 redis: Service stopped unexpectedly
+Jul 06 13:35:22 server01 systemd: Service started successfully
+Jul 06 13:36:22 server01 mysql: Service stopped unexpectedly
+Jul 06 13:37:22 server01 redis: Network interface eth0 is up
+Jul 06 13:38:22 server01 nginx: Disk usage warning: 57%
+Jul 06 13:39:22 server01 sshd: Service stopped unexpectedly
+Jul 06 13:40:22 server01 mysql: Disk usage warning: 60%
+Jul 06 13:41:22 server01 nginx: Network interface eth0 is up
+Jul 06 13:42:22 server01 mysql: Memory usage: 52%
+Jul 06 13:43:22 server01 apache2: Configuration reloaded
+Jul 06 13:44:22 server01 sshd: Memory usage: 48%
+Jul 06 13:45:22 server01 apache2: Disk usage warning: 95%
+Jul 06 13:46:22 server01 nginx: Network interface eth0 is up
+Jul 06 13:47:22 server01 sshd: Service started successfully
+Jul 06 13:48:22 server01 nginx: Configuration reloaded
+Jul 06 13:49:22 server01 sshd: Failed to start service: apache2
+Jul 06 13:50:22 server01 cron: Network interface eth0 is up
+Jul 06 13:51:22 server01 sshd: Network interface eth0 is up
+Jul 06 13:52:22 server01 cron: Backup completed successfully
+Jul 06 13:53:22 server01 mysql: Memory usage: 67%
+Jul 06 13:54:22 server01 cron: Network interface eth0 is up
+Jul 06 13:55:22 server01 nginx: CPU usage: 52%
+Jul 06 13:56:22 server01 mysql: Memory usage: 34%
+Jul 06 13:57:22 server01 systemd: Service stopped unexpectedly
+Jul 06 13:58:22 server01 sshd: System reboot required
+Jul 06 13:59:22 server01 cron: Configuration reloaded
+Jul 06 14:00:22 server01 cron: Network interface eth0 is up
+Jul 06 14:01:22 server01 mysql: Memory usage: 67%
+Jul 06 14:02:22 server01 nginx: Failed to start service: apache2
+Jul 06 14:03:22 server01 nginx: Disk usage warning: 76%
+Jul 06 14:04:22 server01 redis: Network interface eth0 is up
+Jul 06 14:05:22 server01 mysql: Failed to start service: cron
+Jul 06 14:06:22 server01 cron: Configuration reloaded
+Jul 06 14:07:22 server01 mysql: Network interface eth0 is up
+Jul 06 14:08:22 server01 redis: Backup completed successfully
+Jul 06 14:09:22 server01 sshd: Configuration reloaded
+Jul 06 14:10:22 server01 cron: Service started successfully
+Jul 06 14:11:22 server01 cron: Service started successfully
+Jul 06 14:12:22 server01 sshd: Memory usage: 84%
+Jul 06 14:13:22 server01 nginx: Failed to start service: nginx
+Jul 06 14:14:22 server01 redis: Service stopped unexpectedly
+Jul 06 14:15:22 server01 systemd: Configuration reloaded
+Jul 06 14:16:22 server01 apache2: Service started successfully
+Jul 06 14:17:22 server01 apache2: Network interface eth0 is up
+Jul 06 14:18:22 server01 systemd: Disk usage warning: 55%
+Jul 06 14:19:22 server01 sshd: Service started successfully
+Jul 06 14:20:22 server01 nginx: Service started successfully
+Jul 06 14:21:22 server01 cron: Failed to start service: systemd
+Jul 06 14:22:22 server01 cron: Disk usage warning: 87%
+Jul 06 14:23:22 server01 sshd: Backup completed successfully
+Jul 06 14:24:22 server01 sshd: Backup completed successfully
+Jul 06 14:25:22 server01 systemd: Disk usage warning: 51%
+Jul 06 14:26:22 server01 nginx: Memory usage: 66%
+Jul 06 14:27:22 server01 systemd: Failed to start service: nginx
+Jul 06 14:28:22 server01 sshd: Service started successfully
+Jul 06 14:29:22 server01 cron: Disk usage warning: 93%
+Jul 06 14:30:22 server01 mysql: System reboot required
+Jul 06 14:31:22 server01 cron: Service started successfully
+Jul 06 14:32:22 server01 redis: Memory usage: 37%
+Jul 06 14:33:22 server01 sshd: Network interface eth0 is up
+Jul 06 14:34:22 server01 apache2: Memory usage: 47%
+Jul 06 14:35:22 server01 sshd: Failed to start service: nginx
+Jul 06 14:36:22 server01 cron: Backup completed successfully
+Jul 06 14:37:22 server01 sshd: Backup completed successfully
+Jul 06 14:38:22 server01 sshd: Memory usage: 44%
+Jul 06 14:39:22 server01 systemd: Failed to start service: apache2
+Jul 06 14:40:22 server01 sshd: Service started successfully
+Jul 06 14:41:22 server01 mysql: System reboot required
+Jul 06 14:42:22 server01 nginx: Disk usage warning: 69%
+Jul 06 14:43:22 server01 nginx: System reboot required
+Jul 06 14:44:22 server01 apache2: System reboot required
+Jul 06 14:45:22 server01 cron: Backup completed successfully
+Jul 06 14:46:22 server01 cron: Backup completed successfully
+Jul 06 14:47:22 server01 systemd: Service stopped unexpectedly
+Jul 06 14:48:22 server01 redis: Memory usage: 38%
+Jul 06 14:49:22 server01 apache2: CPU usage: 62%
+Jul 06 14:50:22 server01 cron: Configuration reloaded
+Jul 06 14:51:22 server01 mysql: Disk usage warning: 84%
+Jul 06 14:52:22 server01 apache2: Service started successfully
+Jul 06 14:53:22 server01 mysql: Failed to start service: cron
+Jul 06 14:54:22 server01 sshd: Failed to start service: sshd
+Jul 06 14:55:22 server01 systemd: Disk usage warning: 89%
+Jul 06 14:56:22 server01 sshd: CPU usage: 44%
+Jul 06 14:57:22 server01 systemd: Failed to start service: mysql
+Jul 06 14:58:22 server01 redis: Service stopped unexpectedly
+Jul 06 14:59:22 server01 nginx: Service stopped unexpectedly
+Jul 06 15:00:22 server01 systemd: Service stopped unexpectedly
+Jul 06 15:01:22 server01 systemd: Memory usage: 49%
+Jul 06 15:02:22 server01 mysql: Memory usage: 72%
+Jul 06 15:03:22 server01 systemd: Memory usage: 72%
+Jul 06 15:04:22 server01 cron: Service started successfully
+Jul 06 15:05:22 server01 sshd: Service stopped unexpectedly
+Jul 06 15:06:22 server01 apache2: Configuration reloaded
+Jul 06 15:07:22 server01 cron: Network interface eth0 is up
+Jul 06 15:08:22 server01 cron: Failed to start service: cron
+Jul 06 15:09:22 server01 sshd: Configuration reloaded
+Jul 06 15:10:22 server01 systemd: Disk usage warning: 92%
+Jul 06 15:11:22 server01 cron: Service stopped unexpectedly
+Jul 06 15:12:22 server01 nginx: Network interface eth0 is up
+Jul 06 15:13:22 server01 sshd: System reboot required
+Jul 06 15:14:22 server01 redis: Memory usage: 67%
+Jul 06 15:15:22 server01 systemd: Memory usage: 66%
+Jul 06 15:16:22 server01 cron: Service started successfully
+Jul 06 15:17:22 server01 apache2: CPU usage: 71%
+Jul 06 15:18:22 server01 systemd: Service stopped unexpectedly
+Jul 06 15:19:22 server01 mysql: Service started successfully
+Jul 06 15:20:22 server01 sshd: Memory usage: 41%
+Jul 06 15:21:22 server01 sshd: Configuration reloaded
+Jul 06 15:22:22 server01 redis: CPU usage: 68%
+Jul 06 15:23:22 server01 apache2: Memory usage: 78%
+Jul 06 15:24:22 server01 sshd: Backup completed successfully
+Jul 06 15:25:22 server01 systemd: Network interface eth0 is up
+Jul 06 15:26:22 server01 nginx: Service started successfully
+Jul 06 15:27:22 server01 apache2: Network interface eth0 is up
+Jul 06 15:28:22 server01 apache2: Network interface eth0 is up
+Jul 06 15:29:22 server01 apache2: Memory usage: 67%
+Jul 06 15:30:22 server01 mysql: Failed to start service: apache2
+Jul 06 15:31:22 server01 nginx: Service started successfully
+Jul 06 15:32:22 server01 sshd: Service stopped unexpectedly
+Jul 06 15:33:22 server01 apache2: Disk usage warning: 66%
+Jul 06 15:34:22 server01 mysql: Backup completed successfully
+Jul 06 15:35:22 server01 mysql: Configuration reloaded
+Jul 06 15:36:22 server01 redis: Disk usage warning: 73%
+Jul 06 15:37:22 server01 redis: Failed to start service: nginx
+Jul 06 15:38:22 server01 cron: Backup completed successfully
+Jul 06 15:39:22 server01 sshd: Disk usage warning: 89%
+Jul 06 15:40:22 server01 sshd: Memory usage: 48%
+Jul 06 15:41:22 server01 sshd: Memory usage: 33%
+Jul 06 15:42:22 server01 apache2: Service started successfully
+Jul 06 15:43:22 server01 redis: Service started successfully
+Jul 06 15:44:22 server01 cron: Backup completed successfully
+Jul 06 15:45:22 server01 cron: System reboot required
+Jul 06 15:46:22 server01 nginx: Backup completed successfully
+Jul 06 15:47:22 server01 systemd: Service stopped unexpectedly
+Jul 06 15:48:22 server01 apache2: Memory usage: 91%
+Jul 06 15:49:22 server01 nginx: Configuration reloaded
+Jul 06 15:50:22 server01 mysql: Configuration reloaded
+Jul 06 15:51:22 server01 sshd: Network interface eth0 is up
+Jul 06 15:52:22 server01 redis: Memory usage: 56%
+Jul 06 15:53:22 server01 systemd: Network interface eth0 is up
+Jul 06 15:54:22 server01 mysql: Memory usage: 81%
+Jul 06 15:55:22 server01 cron: System reboot required
+Jul 06 15:56:22 server01 cron: Network interface eth0 is up
+Jul 06 15:57:22 server01 nginx: Backup completed successfully
+Jul 06 15:58:22 server01 systemd: CPU usage: 68%
+Jul 06 15:59:22 server01 apache2: Disk usage warning: 77%
+Jul 06 16:00:22 server01 sshd: Disk usage warning: 92%
+Jul 06 16:01:22 server01 redis: Backup completed successfully
+Jul 06 16:02:22 server01 mysql: Network interface eth0 is up
+Jul 06 16:03:22 server01 systemd: CPU usage: 73%
+Jul 06 16:04:22 server01 nginx: Failed to start service: systemd
+Jul 06 16:05:22 server01 mysql: Memory usage: 47%
+Jul 06 16:06:22 server01 nginx: Failed to start service: redis
+Jul 06 16:07:22 server01 sshd: Configuration reloaded
+Jul 06 16:08:22 server01 nginx: Failed to start service: apache2
+Jul 06 16:09:22 server01 apache2: System reboot required
+Jul 06 16:10:22 server01 sshd: Service stopped unexpectedly
+Jul 06 16:11:22 server01 sshd: Backup completed successfully
+Jul 06 16:12:22 server01 apache2: Disk usage warning: 75%
+Jul 06 16:13:22 server01 systemd: Failed to start service: mysql
+Jul 06 16:14:22 server01 cron: Backup completed successfully
+Jul 06 16:15:22 server01 systemd: Configuration reloaded
+Jul 06 16:16:22 server01 cron: Configuration reloaded
+Jul 06 16:17:22 server01 apache2: System reboot required
+Jul 06 16:18:22 server01 nginx: Memory usage: 82%
+Jul 06 16:19:22 server01 apache2: Service started successfully
+Jul 06 16:20:22 server01 redis: System reboot required
+Jul 06 16:21:22 server01 cron: Service stopped unexpectedly
+Jul 06 16:22:22 server01 apache2: System reboot required
+Jul 06 16:23:22 server01 apache2: Disk usage warning: 83%
+Jul 06 16:24:22 server01 sshd: CPU usage: 65%
+Jul 06 16:25:22 server01 mysql: Network interface eth0 is up
+Jul 06 16:26:22 server01 nginx: CPU usage: 35%
+Jul 06 16:27:22 server01 systemd: System reboot required
+Jul 06 16:28:22 server01 apache2: Network interface eth0 is up
+Jul 06 16:29:22 server01 redis: Backup completed successfully
+Jul 06 16:30:22 server01 systemd: Network interface eth0 is up
+Jul 06 16:31:22 server01 redis: Memory usage: 73%
+Jul 06 16:32:22 server01 sshd: Failed to start service: sshd
+Jul 06 16:33:22 server01 nginx: Service stopped unexpectedly
+Jul 06 16:34:22 server01 redis: Disk usage warning: 64%
+Jul 06 16:35:22 server01 mysql: Service stopped unexpectedly
+Jul 06 16:36:22 server01 cron: Backup completed successfully
+Jul 06 16:37:22 server01 sshd: System reboot required
+Jul 06 16:38:22 server01 mysql: Network interface eth0 is up
+Jul 06 16:39:22 server01 sshd: Memory usage: 91%
+Jul 06 16:40:22 server01 systemd: CPU usage: 20%
+Jul 06 16:41:22 server01 nginx: System reboot required
+Jul 06 16:42:22 server01 nginx: Memory usage: 87%
+Jul 06 16:43:22 server01 systemd: Network interface eth0 is up
+Jul 06 16:44:22 server01 cron: System reboot required
+Jul 06 16:45:22 server01 mysql: Service started successfully
+Jul 06 16:46:22 server01 systemd: Memory usage: 74%
+Jul 06 16:47:22 server01 sshd: System reboot required
+Jul 06 16:48:22 server01 systemd: Disk usage warning: 66%
+Jul 06 16:49:22 server01 apache2: Service started successfully
+Jul 06 16:50:22 server01 redis: Service started successfully
+Jul 06 16:51:22 server01 nginx: Backup completed successfully
+Jul 06 16:52:22 server01 redis: Configuration reloaded
+Jul 06 16:53:22 server01 apache2: Disk usage warning: 69%
+Jul 06 16:54:22 server01 systemd: Service stopped unexpectedly
+Jul 06 16:55:22 server01 systemd: Disk usage warning: 57%
+Jul 06 16:56:22 server01 sshd: Backup completed successfully
+Jul 06 16:57:22 server01 sshd: Service started successfully
+Jul 06 16:58:22 server01 mysql: System reboot required
+Jul 06 16:59:22 server01 mysql: Configuration reloaded
+Jul 06 17:00:22 server01 nginx: Memory usage: 33%
+Jul 06 17:01:22 server01 redis: Failed to start service: redis
+Jul 06 17:02:22 server01 mysql: CPU usage: 53%
+Jul 06 17:03:22 server01 nginx: Backup completed successfully
+Jul 06 17:04:22 server01 mysql: Configuration reloaded
+Jul 06 17:05:22 server01 nginx: Disk usage warning: 95%
+Jul 06 17:06:22 server01 redis: CPU usage: 15%
+Jul 06 17:07:22 server01 redis: Failed to start service: mysql
+Jul 06 17:08:22 server01 cron: Service stopped unexpectedly
+Jul 06 17:09:22 server01 redis: Network interface eth0 is up
+Jul 06 17:10:22 server01 cron: Failed to start service: sshd
+Jul 06 17:11:22 server01 cron: Failed to start service: cron
+Jul 06 17:12:22 server01 cron: Memory usage: 40%
+Jul 06 17:13:22 server01 redis: Memory usage: 75%
+Jul 06 17:14:22 server01 cron: Disk usage warning: 64%
+Jul 06 17:15:22 server01 systemd: Service started successfully
+Jul 06 17:16:22 server01 nginx: CPU usage: 50%
+Jul 06 17:17:22 server01 systemd: Service started successfully
+Jul 06 17:18:22 server01 redis: Service stopped unexpectedly
+Jul 06 17:19:22 server01 redis: Network interface eth0 is up
+Jul 06 17:20:22 server01 redis: CPU usage: 58%
+Jul 06 17:21:22 server01 cron: Failed to start service: apache2
+Jul 06 17:22:22 server01 apache2: Failed to start service: nginx
+Jul 06 17:23:22 server01 redis: Service stopped unexpectedly
+Jul 06 17:24:22 server01 mysql: System reboot required
+Jul 06 17:25:22 server01 cron: Memory usage: 46%
+Jul 06 17:26:22 server01 cron: Configuration reloaded
+Jul 06 17:27:22 server01 cron: Service stopped unexpectedly
+Jul 06 17:28:22 server01 systemd: CPU usage: 57%
+Jul 06 17:29:22 server01 mysql: Service stopped unexpectedly
+Jul 06 17:30:22 server01 systemd: Failed to start service: redis
+Jul 06 17:31:22 server01 sshd: Service started successfully
+Jul 06 17:32:22 server01 redis: Disk usage warning: 95%
+Jul 06 17:33:22 server01 sshd: Network interface eth0 is up
+Jul 06 17:34:22 server01 nginx: Service stopped unexpectedly
+Jul 06 17:35:22 server01 redis: Failed to start service: nginx
+Jul 06 17:36:22 server01 apache2: Memory usage: 67%
+Jul 06 17:37:22 server01 cron: Service started successfully
+Jul 06 17:38:22 server01 systemd: Disk usage warning: 52%
+Jul 06 17:39:22 server01 redis: Network interface eth0 is up
+Jul 06 17:40:22 server01 mysql: Memory usage: 60%
+Jul 06 17:41:22 server01 cron: CPU usage: 60%
+Jul 06 17:42:22 server01 mysql: CPU usage: 81%
+Jul 06 17:43:22 server01 systemd: CPU usage: 70%
+Jul 06 17:44:22 server01 cron: Disk usage warning: 77%
+Jul 06 17:45:22 server01 cron: Failed to start service: mysql
+Jul 06 17:46:22 server01 cron: Backup completed successfully
+Jul 06 17:47:22 server01 cron: Backup completed successfully
+Jul 06 17:48:22 server01 systemd: Backup completed successfully
+Jul 06 17:49:22 server01 sshd: System reboot required
+Jul 06 17:50:22 server01 apache2: Memory usage: 66%
+Jul 06 17:51:22 server01 apache2: Configuration reloaded
+Jul 06 17:52:22 server01 sshd: Network interface eth0 is up
+Jul 06 17:53:22 server01 cron: System reboot required
+Jul 06 17:54:22 server01 nginx: Failed to start service: systemd
+Jul 06 17:55:22 server01 cron: Backup completed successfully
+Jul 06 17:56:22 server01 cron: Failed to start service: cron
+Jul 06 17:57:22 server01 cron: Backup completed successfully
+Jul 06 17:58:22 server01 mysql: Service started successfully
+Jul 06 17:59:22 server01 sshd: Configuration reloaded
+Jul 06 18:00:22 server01 apache2: Failed to start service: apache2
+Jul 06 18:01:22 server01 nginx: Disk usage warning: 58%
+Jul 06 18:02:22 server01 apache2: CPU usage: 40%
+Jul 06 18:03:22 server01 apache2: Configuration reloaded
+Jul 06 18:04:22 server01 systemd: Configuration reloaded
+Jul 06 18:05:22 server01 cron: Service started successfully
+Jul 06 18:06:22 server01 apache2: Disk usage warning: 92%
+Jul 06 18:07:22 server01 redis: System reboot required
+Jul 06 18:08:22 server01 redis: Backup completed successfully
+Jul 06 18:09:22 server01 sshd: Disk usage warning: 83%
+Jul 06 18:10:22 server01 systemd: Backup completed successfully
+Jul 06 18:11:22 server01 sshd: Memory usage: 36%
+Jul 06 18:12:22 server01 cron: Disk usage warning: 74%
+Jul 06 18:13:22 server01 nginx: Disk usage warning: 77%
+Jul 06 18:14:22 server01 cron: Failed to start service: cron
+Jul 06 18:15:22 server01 nginx: System reboot required
+Jul 06 18:16:22 server01 mysql: CPU usage: 39%
+Jul 06 18:17:22 server01 systemd: Configuration reloaded
+Jul 06 18:18:22 server01 redis: CPU usage: 36%
+Jul 06 18:19:22 server01 cron: Configuration reloaded
+Jul 06 18:20:22 server01 apache2: Memory usage: 85%
+Jul 06 18:21:22 server01 mysql: Disk usage warning: 65%
+Jul 06 18:22:22 server01 systemd: CPU usage: 33%
+Jul 06 18:23:22 server01 sshd: System reboot required
+Jul 06 18:24:22 server01 mysql: Disk usage warning: 59%
