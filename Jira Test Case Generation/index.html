@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Jira Test Case Generator</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #f3f3f3 0%, #f3f3f3 100%);
+      min-height: 100vh;
+      padding: 20px;
+     /* animation: backgroundShift 20s ease-in-out infinite; */
+    }
+
+    @keyframes backgroundShift {
+      0%, 100% { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+      33% { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+      66% { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-radius: 25px;
+      padding: 40px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      animation: slideIn 0.8s ease-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 30px;
+      font-weight: 700;
+      text-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .input-group {
+      margin-bottom: 30px;
+      position: relative;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #333;
+      font-size: 1.1rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 15px 20px;
+      border: 2px solid #e1e8ed;
+      border-radius: 15px;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      transform: translateY(-2px);
+    }
+
+    button {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      padding: 18px 40px;
+      font-size: 1.2rem;
+      border-radius: 15px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    button:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
+    }
+
+    button:hover:before {
+      left: 100%;
+    }
+
+    button:active {
+      transform: translateY(-1px);
+    }
+
+    .warning {
+      color: #e74c3c;
+      margin-bottom: 15px;
+      padding: 12px 20px;
+      background: rgba(231, 76, 60, 0.1);
+      border-radius: 10px;
+      border-left: 4px solid #e74c3c;
+      display: none;
+      animation: shake 0.5s ease-in-out;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin: 30px 0 15px 0;
+      color: #2c3e50;
+      position: relative;
+      padding-left: 20px;
+    }
+
+    h3:before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border-radius: 2px;
+    }
+
+    .section {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      padding: 25px;
+      border-radius: 15px;
+      margin-bottom: 25px;
+      white-space: pre-wrap;
+      border: 1px solid #dee2e6;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    }
+
+    .section:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #667eea, #764ba2);
+    }
+
+    .sub-item {
+      margin-left: 20px;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 10px;
+      margin-bottom: 10px;
+      border-left: 3px solid #667eea;
+      transition: all 0.3s ease;
+    }
+
+    .sub-item:hover {
+      background: rgba(255, 255, 255, 0.9);
+      transform: translateX(5px);
+    }
+
+    .sub-item strong {
+      color: #667eea;
+      font-weight: 700;
+    }
+
+    #heatmapSection {
+      margin-top: 40px;
+      text-align: center;
+      padding: 30px;
+      background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      border: 1px solid #e9ecef;
+    }
+
+    canvas {
+      max-width: 100%;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    #heatmapChart {
+      max-width: 600px;
+      max-height: 400px;
+    }
+
+    pre {
+      background: #2d3748;
+      /* color: #e2e8f0; */
+      padding: 25px;
+      border-radius: 15px;
+      overflow-x: auto;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      border: 1px solid #4a5568;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .loading {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #667eea;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-right: 10px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .fade-in {
+      animation: fadeIn 0.6s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .success-message {
+      color: #27ae60;
+      font-weight: 600;
+      background: rgba(39, 174, 96, 0.1);
+      padding: 15px;
+      border-radius: 10px;
+      border-left: 4px solid #27ae60;
+      margin-bottom: 20px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+      gap: 30px;
+      margin-top: 30px;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 20px;
+        margin: 10px;
+      }
+      
+      h2 {
+        font-size: 2rem;
+      }
+      
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>🧪 Jira Test Case Generator</h2>
+
+    <div class="input-group">
+      <label for="issueKey">Enter Jira Issue Key:</label>
+      <input type="text" id="issueKey" placeholder="e.g., CRM-8">
+      <div id="warning" class="warning">⚠️ Please enter a Jira Issue Key.</div>
+    </div>
+    
+    <button onclick="generate()" class="pulse">Generate Test Cases</button>
+
+    <div class="grid">
+      <div>
+        <h3>📝 Jira Description</h3>
+        <div id="jiraDescription" class="section">Waiting for input...</div>
+
+        <h3>📌 Subtasks</h3>
+        <div id="subtasks" class="section">No subtasks yet...</div>
+      </div>
+
+      <div>
+        <h3>🔗 Linked Issues</h3>
+        <div id="linkedIssues" class="section">No linked issues yet...</div>
+
+        <h3>✅ Generated Test Cases</h3>
+        <div id="testCases" class="section">Waiting for input...</div>
+      </div>
+    </div>
+
+    <h3>🧪 Generated Test Automation Snippet</h3>
+    <pre id="automation" class="section">Waiting for input...</pre>
+
+    <div id="heatmapSection" style="display:none;">
+      <h3>🔥 Module Usage Heatmap</h3>
+      <canvas id="heatmapChart" width="600" height="400"></canvas>
+    </div>
+  </div>
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script>
+    async function generate() {
+      const key = document.getElementById('issueKey').value.trim();
+      const warning = document.getElementById('warning');
+      const output = document.getElementById('testCases');
+
+      warning.style.display = 'none';
+      warning.textContent = "";
+
+      if (!key) {
+        warning.textContent = "⚠️ Please enter a Jira Issue Key.";
+        warning.style.display = 'block';
+        return;
+      }
+
+      // Add loading states
+      const loadingHTML = '<div class="loading"></div>Fetching...';
+      document.getElementById('jiraDescription').innerHTML = loadingHTML;
+      output.innerHTML = loadingHTML;
+      document.getElementById('subtasks').innerHTML = loadingHTML;
+      document.getElementById('linkedIssues').innerHTML = loadingHTML;
+      document.getElementById('automation').innerHTML = loadingHTML;
+
+      try {
+        const res = await fetch('/generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ issueKey: key })
+        });
+
+        const data = await res.json();
+
+        // Add fade-in animation to results
+        setTimeout(() => {
+          document.getElementById('jiraDescription').className = 'section fade-in';
+          document.getElementById('jiraDescription').textContent =
+            data.jiraDetails?.mainDescription || "No description available.";
+
+          if (data.jiraDetails?.subtasks?.length) {
+            document.getElementById('subtasks').className = 'section fade-in';
+            document.getElementById('subtasks').innerHTML = data.jiraDetails.subtasks.map(s =>
+              `<div class="sub-item"><strong>${s.key}</strong>: ${s.summary} - ${s.description || 'No description'}</div>`
+            ).join('');
+          } else {
+            document.getElementById('subtasks').className = 'section fade-in';
+            document.getElementById('subtasks').textContent = "No subtasks found.";
+          }
+
+          if (data.jiraDetails?.linkedIssues?.length) {
+            document.getElementById('linkedIssues').className = 'section fade-in';
+            document.getElementById('linkedIssues').innerHTML = data.jiraDetails.linkedIssues.map(l =>
+              `<div class="sub-item"><strong>${l.key}</strong>: ${l.summary} - ${l.description || 'No description'}</div>`
+            ).join('');
+          } else {
+            document.getElementById('linkedIssues').className = 'section fade-in';
+            document.getElementById('linkedIssues').textContent = "No linked issues found.";
+          }
+
+          output.className = 'section fade-in';
+          output.textContent = data.testCases || "❌ Failed to generate test cases.";
+          
+          document.getElementById('automation').className = 'section fade-in';
+          document.getElementById('automation').textContent = data.automationSnippet || "No automation snippet generated.";
+
+          // Show success message
+          if (data.testCases) {
+            const successDiv = document.createElement('div');
+            successDiv.className = 'success-message fade-in';
+            successDiv.textContent = '✅ Test cases generated successfully!';
+            output.parentNode.insertBefore(successDiv, output);
+            
+            setTimeout(() => successDiv.remove(), 5000);
+          }
+        }, 300);
+
+        // Render heatmap chart
+        console.log("Heatmap Data:", data.heatmapData);
+        if (data.heatmapData && Object.keys(data.heatmapData).length) {
+          const ctx = document.getElementById('heatmapChart').getContext('2d');
+
+          const labels = Object.keys(data.heatmapData || {});
+          const values = Object.values(data.heatmapData || {});
+
+          // Destroy old chart if any
+          if (window.heatmapChart && typeof window.heatmapChart.destroy === 'function') {
+            window.heatmapChart.destroy();
+          }
+
+          window.heatmapChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: labels,
+              datasets: [{
+                label: 'Module/Story Coverage',
+                data: values,
+                backgroundColor: 'rgba(102, 126, 234, 0.8)',
+                borderColor: 'rgba(102, 126, 234, 1)',
+                borderWidth: 2,
+                borderRadius: 8,
+                borderSkipped: false,
+              }]
+            },
+            options: {
+              responsive: true,
+              plugins: {
+                legend: {
+                  display: false
+                }
+              },
+              scales: {
+                y: {
+                  beginAtZero: true,
+                  title: {
+                    display: true,
+                    text: 'Mentions',
+                    color: '#2c3e50',
+                    font: {
+                      size: 14,
+                      weight: 600
+                    }
+                  },
+                  grid: {
+                    color: 'rgba(0, 0, 0, 0.1)'
+                  }
+                },
+                x: {
+                  grid: {
+                    display: false
+                  }
+                }
+              }
+            }
+          });
+
+          document.getElementById('heatmapSection').style.display = 'block';
+          document.getElementById('heatmapSection').className = 'fade-in';
+        } else {
+          document.getElementById('heatmapSection').style.display = 'none';
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        document.getElementById('jiraDescription').textContent = "❌ Error fetching data. Please try again.";
+        document.getElementById('subtasks').textContent = "❌ Error fetching subtasks.";
+        document.getElementById('linkedIssues').textContent = "❌ Error fetching linked issues.";
+        output.textContent = "❌ Error generating test cases.";
+        document.getElementById('automation').textContent = "❌ Error generating automation snippet.";
+      }
+    }
+
+    // Add Enter key support
+    document.getElementById('issueKey').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        generate();
+      }
+    });
+  </script>
+</body>
+</html>
