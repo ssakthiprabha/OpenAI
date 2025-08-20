@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agentic Logo Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            padding: 40px;
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .tab {
+            padding: 15px 30px;
+            background: none;
+            border: none;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab.active {
+            color: #4facfe;
+            border-bottom-color: #4facfe;
+            font-weight: 600;
+        }
+
+        .tab:hover {
+            background: rgba(79, 172, 254, 0.1);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group textarea, .form-group input, .form-group select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            resize: vertical;
+        }
+
+        .form-group textarea:focus, .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #4facfe;
+            box-shadow: 0 0 20px rgba(79, 172, 254, 0.2);
+        }
+
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .example-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+        }
+
+        .example-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .example-card.selected {
+            border-color: #fff;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+        }
+
+        .example-card h3 {
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .example-card p {
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(79, 172, 254, 0.4);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .config-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+        }
+
+        .config-section h3 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .config-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .results {
+            display: none;
+            margin-top: 30px;
+            padding: 30px;
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            border-radius: 15px;
+        }
+
+        .results.show {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .logo-item {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .logo-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .logo-placeholder {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, #f0f0f0 25%, transparent 25%),
+                        linear-gradient(-45deg, #f0f0f0 25%, transparent 25%),
+                        linear-gradient(45deg, transparent 75%, #f0f0f0 75%),
+                        linear-gradient(-45deg, transparent 75%, #f0f0f0 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+
+        .logo-image {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .score-bar {
+            background: #e0e0e0;
+            height: 8px;
+            border-radius: 4px;
+            margin: 5px 0;
+            overflow: hidden;
+        }
+
+        .score-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff6b6b 0%, #ffd93d 50%, #6bcf7f 100%);
+            border-radius: 4px;
+            transition: width 0.8s ease;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #4facfe;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+            padding: 0 20px;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            position: relative;
+        }
+
+        .step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 15px;
+            right: -50%;
+            width: 100%;
+            height: 2px;
+            background: #e0e0e0;
+            z-index: 1;
+        }
+
+        .step.active::after {
+            background: #4facfe;
+        }
+
+        .step-circle {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            z-index: 2;
+            position: relative;
+        }
+
+        .step.active .step-circle {
+            background: #4facfe;
+        }
+
+        .step.completed .step-circle {
+            background: #6bcf7f;
+        }
+
+        .step-label {
+            margin-top: 8px;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .api-status {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .api-status.connected {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .api-status.disconnected {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .api-status.testing {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .status-dot.green {
+            background: #28a745;
+        }
+
+        .status-dot.red {
+            background: #dc3545;
+        }
+
+        .status-dot.yellow {
+            background: #ffc107;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 10px;
+            color: white;
+            font-weight: 500;
+            z-index: 1000;
+            max-width: 350px;
+            animation: slideInRight 0.5s ease;
+        }
+
+        .notification.success {
+            background: linear-gradient(135deg, #6bcf7f 0%, #4caf50 100%);
+        }
+
+        .notification.error {
+            background: linear-gradient(135deg, #ff6b6b 0%, #f44336 100%);
+        }
+
+        .notification.info {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .main-content {
+                padding: 20px;
+            }
+            
+            .tabs {
+                flex-direction: column;
+            }
+            
+            .tab {
+                text-align: center;
+            }
+            
+            .examples-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .config-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎨 Agentic Logo Generator</h1>
+            <p>AI-Powered Logo Design with LangChain Agents</p>
+        </div>
+
+        <div class="main-content">
+            <div class="api-status" id="apiStatus">
+                <div class="status-dot red"></div>
+                <span>API Status: Checking...</span>
+            </div>
+
+            <div class="tabs">
+                <button class="tab active" onclick="switchTab('generate')">Generate Logo</button>
+                <button class="tab" onclick="switchTab('examples')">Examples</button>
+                <button class="tab" onclick="switchTab('config')">Configuration</button>
+                <button class="tab" onclick="switchTab('results')">Results</button>
+            </div>
+
+            <!-- Generate Tab -->
+            <div id="generateTab" class="tab-content active">
+                <form id="logoForm">
+                    <div class="form-group">
+                        <label for="clubDescription">Club Description *</label>
+                        <textarea id="clubDescription" rows="6" placeholder="Describe your club, its mission, values, and activities. Be detailed about what your organization does and stands for..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="personalVision">Personal Vision (Optional)</label>
+                        <textarea id="personalVision" rows="4" placeholder="Describe your vision for the logo design, preferred styles, colors, or specific elements you'd like to see..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn" id="generateBtn">🚀 Generate Logos</button>
+                </form>
+
+                <div class="loading" id="loadingSection">
+                    <div class="spinner"></div>
+                    <h3>Generating your logos...</h3>
+                    <p id="loadingText">Initializing AI agents...</p>
+                    
+                    <div class="progress-steps">
+                        <div class="step" id="step1">
+                            <div class="step-circle">1</div>
+                            <div class="step-label">Initialize</div>
+                        </div>
+                        <div class="step" id="step2">
+                            <div class="step-circle">2</div>
+                            <div class="step-label">Generate</div>
+                        </div>
+                        <div class="step" id="step3">
+                            <div class="step-circle">3</div>
+                            <div class="step-label">Evaluate</div>
+                        </div>
+                        <div class="step" id="step4">
+                            <div class="step-circle">4</div>
+                            <div class="step-label">Complete</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="results" id="resultsSection">
+                    <h2>🏆 Generated Logos</h2>
+                    <div id="logoGallery" class="logo-gallery"></div>
+                    <div id="bestLogo"></div>
+                </div>
+            </div>
+
+            <!-- Examples Tab -->
+            <div id="examplesTab" class="tab-content">
+                <h2>📚 Pre-built Club Examples</h2>
+                <p>Select an example to quickly test the logo generation pipeline:</p>
+                
+                <div class="examples-grid" id="examplesGrid">
+                    <!-- Examples will be populated by JavaScript -->
+                </div>
+                
+                <button class="btn" onclick="useSelectedExample()" id="useExampleBtn" disabled>Use Selected Example</button>
+            </div>
+
+            <!-- Configuration Tab -->
+            <div id="configTab" class="tab-content">
+                <h2>⚙️ Pipeline Configuration</h2>
+                
+                <div class="config-section">
+                    <h3>API Configuration</h3>
+                    <div class="config-grid">
+                        <div class="form-group">
+                            <label for="apiKey">OpenAI API Key</label>
+                            <input type="password" id="apiKey" placeholder="sk-proj-...">
+                        </div>
+                        <div class="form-group">
+                            <label for="openaiModel">OpenAI Model</label>
+                            <select id="openaiModel">
+                                <option value="gpt-3.5-turbo">GPT-3.5 Turbo</option>
+                                <option value="gpt-4">GPT-4</option>
+                                <option value="gpt-4-turbo">GPT-4 Turbo</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="dalleModel">DALL-E Model</label>
+                            <select id="dalleModel">
+                                <option value="dall-e-2">DALL-E 2</option>
+                                <option value="dall-e-3">DALL-E 3</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="btn" onclick="testConnection()">Test API Connection</button>
+                </div>
+
+                <div class="config-section">
+                    <h3>Generation Settings</h3>
+                    <div class="config-grid">
+                        <div class="form-group">
+                            <label for="maxCandidates">Max Logo Candidates</label>
+                            <input type="number" id="maxCandidates" min="1" max="10" value="3">
+                        </div>
+                        <div class="form-group">
+                            <label for="temperature">Agent Temperature: <span id="tempValue">0.8</span></label>
+                            <input type="range" id="temperature" min="0" max="1" step="0.1" value="0.8">
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn" onclick="saveConfiguration()">💾 Save Configuration</button>
+            </div>
+
+            <!-- Results Tab -->
+            <div id="resultsTab" class="tab-content">
+                <h2>📊 Generation Results</h2>
+                <div id="detailedResults">
+                    <p>No results yet. Generate some logos to see detailed analysis!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Configuration
+        const API_BASE_URL = 'http://localhost:5000/api';
+        
+        // Global variables
+        let selectedExample = null;
+        let currentResults = null;
+        let currentJobId = null;
+        let statusCheckInterval = null;
+        let examples = {};
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            loadConfiguration();
+            checkApiHealth();
+            loadExamples();
+            setupEventListeners();
+        });
+
+        // API Functions
+        async function apiRequest(endpoint, options = {}) {
+            try {
+                const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        ...options.headers
+                    },
+                    ...options
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                return await response.json();
+            } catch (error) {
+                console.error(`API request failed: ${endpoint}`, error);
+                throw error;
+            }
+        }
+
+        async function checkApiHealth() {
+            try {
+                const response = await apiRequest('/health');
+                updateApiStatus('connected', 'API Status: Connected');
+                console.log('API Health:', response);
+            } catch (error) {
+                updateApiStatus('disconnected', 'API Status: Disconnected');
+                console.error('API health check failed:', error);
+            }
+        }
+
+        async function loadExamples() {
+            try {
+                const response = await apiRequest('/examples');
+                if (response.success) {
+                    examples = response.examples;
+                    populateExamples();
+                }
+            } catch (error) {
+                console.error('Failed to load examples:', error);
+                // Use fallback examples
+                examples = getFallbackExamples();
+                populateExamples();
+            }
+        }
+
+        // Event Listeners
+        function setupEventListeners() {
+            document.getElementById('logoForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                generateLogos();
+            });
+
+            document.getElementById('temperature').addEventListener('input', function() {
+                document.getElementById('tempValue').textContent = this.value;
+            });
+
+            // Keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                if (e.ctrlKey || e.metaKey) {
+                    switch(e.key) {
+                        case 'Enter':
+                            e.preventDefault();
+                            if (document.getElementById('generateTab').classList.contains('active')) {
+                                generateLogos();
+                            }
+                            break;
+                        case 's':
+                            e.preventDefault();
+                            saveConfiguration();
+                            break;
+                    }
+                }
+            });
+        }
+
+        // UI Functions
+        function switchTab(tabName) {
+            // Remove active class from all tabs and content
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            // Add active class to selected tab and content
+            event.target.classList.add('active');
+            document.getElementById(tabName + 'Tab').classList.add('active');
+        }
+
+        function updateApiStatus(status, message) {
+            const statusElement = document.getElementById('apiStatus');
+            const dot = statusElement.querySelector('.status-dot');
+            const text = statusElement.querySelector('span');
+            
+            statusElement.className = `api-status ${status}`;
+            text.textContent = message;
+            
+            switch(status) {
+                case 'connected':
+                    dot.className = 'status-dot green';
+                    break;
+                case 'testing':
+                    dot.className = 'status-dot yellow';
+                    break;
+                default:
+                    dot.className = 'status-dot red';
+            }
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideInRight 0.5s ease reverse';
+                setTimeout(() => notification.remove(), 500);
+            }, 4000);
+        }
+
+        // Examples Management
+        function populateExamples() {
+            const grid = document.getElementById('examplesGrid');
+            grid.innerHTML = '';
+            
+            Object.entries(examples).forEach(([name, data]) => {
+                const card = document.createElement('div');
+                card.className = 'example-card';
+                card.onclick = () => selectExample(name, card);
+                
+                const shortDesc = data.club_description ? 
+                    data.club_description.substring(0, 150) + '...' :
+                    data.description.substring(0, 150) + '...';
+                
+                card.innerHTML = `
+                    <h3>${name}</h3>
+                    <p>${shortDesc}</p>
+                `;
+                
+                grid.appendChild(card);
+            });
+        }
+
+        function selectExample(name, cardElement) {
+            document.querySelectorAll('.example-card').forEach(card => 
+                card.classList.remove('selected'));
+            
+            cardElement.classList.add('selected');
+            selectedExample = name;
+            
+            document.getElementById('useExampleBtn').disabled = false;
+        }
+
+        function useSelectedExample() {
+            if (!selectedExample) return;
+            
+            const example = examples[selectedExample];
+            document.getElementById('clubDescription').value = 
+                example.club_description || example.description;
+            document.getElementById('personalVision').value = 
+                example.personal_vision || example.vision;
+            
+            switchTab('generate');
+            document.querySelector('.tab').click();
+            showNotification('Example loaded successfully!', 'success');
+        }
+
+        // Configuration Management
+        function saveConfiguration() {
+            const config = {
+                apiKey: document.getElementById('apiKey').value,
+                openaiModel: document.getElementById('openaiModel').value,
+                dalleModel: document.getElementById('dalleModel').value,
+                maxCandidates: document.getElementById('maxCandidates').value,
+                temperature: document.getElementById('temperature').value
+            };
+            
+            localStorage.setItem('logoGenConfig', JSON.stringify(config));
+            showNotification('Configuration saved successfully!', 'success');
+        }
+
+        function loadConfiguration() {
+            const saved = localStorage.getItem('logoGenConfig');
+            if (saved) {
+                const config = JSON.parse(saved);
+                Object.entries(config).forEach(([key, value]) => {
+                    const element = document.getElementById(key);
+                    if (element) {
+                        element.value = value;
+                    }
+                });
+                document.getElementById('tempValue').textContent = config.temperature || '0.8';
+            }
+        }
+
+        async function testConnection() {
+            const apiKey = document.getElementById('apiKey').value;
+            if (!apiKey) {
+                showNotification('Please enter your OpenAI API key first.', 'error');
+                return;
+            }
+            
+            updateApiStatus('testing', 'API Status: Testing...');
+            
+            try {
+                const response = await apiRequest('/config/test', {
+                    method: 'POST',
+                    body: JSON.stringify({ api_key: apiKey })
+                });
+                
+                if (response.success) {
+                    updateApiStatus('connected', 'API Status: Connected');
+                    showNotification('API connection successful!', 'success');
+                } else {
+                    updateApiStatus('disconnected', 'API Status: Failed');
+                    showNotification(response.error || 'API connection failed', 'error');
+                }
+            } catch (error) {
+                updateApiStatus('disconnected', 'API Status: Failed');
+                showNotification('API connection failed: ' + error.message, 'error');
+            }
+        }
+
+        // Logo Generation
+        async function generateLogos() {
+            const clubDescription = document.getElementById('clubDescription').value.trim();
+            const personalVision = document.getElementById('personalVision').value.trim();
+            
+            if (!clubDescription) {
+                showNotification('Please enter a club description.', 'error');
+                return;
+            }
+            
+            // Show loading
+            document.getElementById('loadingSection').classList.add('show');
+            document.getElementById('resultsSection').classList.remove('show');
+            document.getElementById('generateBtn').disabled = true;
+            
+            try {
+                // Start generation
+                const response = await apiRequest('/generate', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        club_description: clubDescription,
+                        personal_vision: personalVision
+                    })
+                });
+                
+                if (response.success) {
+                    currentJobId = response.job_id;
+                    showNotification('Logo generation started!', 'success');
+                    startStatusChecking();
+                } else {
+                    throw new Error(response.error || 'Failed to start generation');
+                }
+                
+            } catch (error) {
+                hideLoading();
+                showNotification('Failed to start generation: ' + error.message, 'error');
+            }
+        }
+
+        function startStatusChecking() {
+            if (statusCheckInterval) {
+                clearInterval(statusCheckInterval);
+            }
+            
+            statusCheckInterval = setInterval(async () => {
+                try {
+                    const response = await apiRequest(`/status/${currentJobId}`);
+                    
+                    if (response.success) {
+                        updateProgress(response.job);
+                        
+                        if (response.job.status === 'completed') {
+                            clearInterval(statusCheckInterval);
+                            await loadResults();
+                        } else if (response.job.status === 'failed') {
+                            clearInterval(statusCheckInterval);
+                            hideLoading();
+                            showNotification('Generation failed: ' + response.job.error, 'error');
+                        }
+                    }
+                } catch (error) {
+                    console.error('Status check failed:', error);
+                }
+            }, 2000);
+        }
+
+        function updateProgress(job) {
+            document.getElementById('loadingText').textContent = job.current_step || 'Processing...';
+            
+            // Update step indicators
+            const steps = ['step1', 'step2', 'step3', 'step4'];
+            const progressSteps = Math.floor(job.progress / 25);
+            
+            steps.forEach((stepId, index) => {
+                const stepElement = document.getElementById(stepId);
+                stepElement.classList.remove('active', 'completed');
+                
+                if (index < progressSteps) {
+                    stepElement.classList.add('completed');
+                } else if (index === progressSteps) {
+                    stepElement.classList.add('active');
+                }
+            });
+        }
+
+        async function loadResults() {
+            try {
+                const response = await apiRequest(`/results/${currentJobId}`);
+                
+                if (response.success) {
+                    currentResults = response.results;
+                    displayResults(currentResults);
+                    hideLoading();
+                    document.getElementById('resultsSection').classList.add('show');
+                    updateResultsTab();
+                    showNotification('Logo generation completed!', 'success');
+                } else {
+                    throw new Error(response.error || 'Failed to load results');
+                }
+            } catch (error) {
+                hideLoading();
+                showNotification('Failed to load results: ' + error.message, 'error');
+            }
+        }
+
+        function hideLoading() {
+            document.getElementById('loadingSection').classList.remove('show');
+            document.getElementById('generateBtn').disabled = false;
+            
+            // Reset steps
+            document.querySelectorAll('.step').forEach(step => {
+                step.classList.remove('active', 'completed');
+            });
+            
+            if (statusCheckInterval) {
+                clearInterval(statusCheckInterval);
+            }
+        }
+
+        function displayResults(results) {
+            const gallery = document.getElementById('logoGallery');
+            gallery.innerHTML = '';
+            
+            // Handle different result formats
+            const logos = results.all_evaluations || results.logos || [];
+            const selectedLogo = results.selected_logo || {};
+            
+            logos.forEach((logo, index) => {
+                const logoItem = document.createElement('div');
+                logoItem.className = 'logo-item';
+                
+                // Check if this is the selected logo
+                const isSelected = selectedLogo.id === logo.logo_id || 
+                                 selectedLogo.id === logo.id ||
+                                 logo.isSelected;
+                
+                if (isSelected) logoItem.style.border = '3px solid #4facfe';
+                
+                const logoId = logo.logo_id || logo.id || `logo_${index + 1}`;
+                const imageUrl = `/api/logos/${currentJobId}/${logoId}`;
+                
+                logoItem.innerHTML = `
+                    <img src="${imageUrl}" alt="${logoId}" class="logo-image" 
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="logo-placeholder" style="display: none;">
+                        🎨 ${logoId.toUpperCase()}
+                        ${isSelected ? '<br>👑 SELECTED' : ''}
+                    </div>
+                    <h4>${logo.description || selectedLogo.description || `Logo ${index + 1}`}</h4>
+                    <div style="margin: 15px 0;">
+                        ${createScoreDisplay(logo)}
+                    </div>
+                `;
+                
+                gallery.appendChild(logoItem);
+            });
+            
+            // Show selection reasoning
+            const bestLogo = document.getElementById('bestLogo');
+            bestLogo.innerHTML = `
+                <div style="background: white; padding: 25px; border-radius: 15px; margin-top: 20px;">
+                    <h3>🧠 AI Selection Reasoning</h3>
+                    <p style="line-height: 1.6; margin-top: 15px;">
+                        ${results.selection_reasoning || 'The AI agent evaluated all logos based on clarity, relevance, creativity, and simplicity criteria.'}
+                    </p>
+                </div>
+            `;
+        }
+
+        function createScoreDisplay(logo) {
+            const scores = logo.scores || {
+                clarity: logo.clarity_score || 8.0,
+                relevance: logo.relevance_score || 8.0,
+                creativity: logo.creativity_score || 8.0,
+                simplicity: logo.simplicity_score || 8.0,
+                overall: logo.overall_score || 8.0
+            };
+            
+            return `
+                <div style="display: flex; justify-content: space-between; margin: 5px 0;">
+                    <span>Clarity:</span>
+                    <span>${scores.clarity}/10</span>
+                </div>
+                <div class="score-bar">
+                    <div class="score-fill" style="width: ${scores.clarity * 10}%"></div>
+                </div>
+                
+                <div style="display: flex; justify-content: space-between; margin: 5px 0;">
+                    <span>Relevance:</span>
+                    <span>${scores.relevance}/10</span>
+                </div>
+                <div class="score-bar">
+                    <div class="score-fill" style="width: ${scores.relevance * 10}%"></div>
+                </div>
+                
+                <div style="display: flex; justify-content: space-between; margin: 5px 0;">
+                    <span>Creativity:</span>
+                    <span>${scores.creativity}/10</span>
+                </div>
+                <div class="score-bar">
+                    <div class="score-fill" style="width: ${scores.creativity * 10}%"></div>
+                </div>
+                
+                <div style="display: flex; justify-content: space-between; margin: 5px 0;">
+                    <span>Simplicity:</span>
+                    <span>${scores.simplicity}/10</span>
+                </div>
+                <div class="score-bar">
+                    <div class="score-fill" style="width: ${scores.simplicity * 10}%"></div>
+                </div>
+                
+                <div style="display: flex; justify-content: space-between; margin: 15px 0 5px 0; font-weight: bold;">
+                    <span>Overall Score:</span>
+                    <span>${scores.overall}/10</span>
+                </div>
+                <div class="score-bar">
+                    <div class="score-fill" style="width: ${scores.overall * 10}%"></div>
+                </div>
+            `;
+        }
+
+        function updateResultsTab() {
+            if (!currentResults) return;
+            
+            const logos = currentResults.all_evaluations || currentResults.logos || [];
+            const detailedResults = document.getElementById('detailedResults');
+            
+            detailedResults.innerHTML = `
+                <div style="background: white; padding: 30px; border-radius: 15px;">
+                    <h3>📊 Detailed Analysis</h3>
+                    
+                    <div style="margin: 20px 0;">
+                        <h4>Generation Summary</h4>
+                        <ul style="margin: 10px 0; padding-left: 20px;">
+                            <li>Total logos generated: ${logos.length}</li>
+                            <li>Selected logo: ${currentResults.selected_logo?.id || 'N/A'}</li>
+                            <li>Best overall score: ${Math.max(...logos.map(l => l.overall_score || 8.0)).toFixed(1)}/10</li>
+                            <li>Average score: ${logos.length > 0 ? (logos.reduce((sum, l) => sum + (l.overall_score || 8.0), 0) / logos.length).toFixed(1) : 'N/A'}/10</li>
+                        </ul>
+                    </div>
+                    
+                    <div style="margin: 20px 0;">
+                        <h4>Export Options</h4>
+                        <div style="display: flex; gap: 10px; margin: 15px 0;">
+                            <button class="btn" onclick="downloadResults('json')" style="font-size: 0.9rem; padding: 10px 20px;">📄 Download JSON</button>
+                            <button class="btn" onclick="shareResults()" style="font-size: 0.9rem; padding: 10px 20px;">🔗 Share Results</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Export Functions
+        async function downloadResults(format) {
+            if (!currentJobId) {
+                showNotification('No results to download!', 'error');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/download/${currentJobId}/${format}`);
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `logo-results-${new Date().getTime()}.${format}`;
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    showNotification('Download started!', 'success');
+                } else {
+                    throw new Error('Download failed');
+                }
+            } catch (error) {
+                showNotification('Download failed: ' + error.message, 'error');
+            }
+        }
+
+        function shareResults() {
+            if (!currentResults) {
+                showNotification('No results to share!', 'error');
+                return;
+            }
+            
+            const selectedLogo = currentResults.selected_logo || {};
+            const shareText = `Check out my AI-generated logo results! Selected logo: ${selectedLogo.id || 'N/A'} with professional AI evaluation.`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Agentic Logo Generation Results',
+                    text: shareText,
+                    url: window.location.href
+                });
+            } else {
+                navigator.clipboard.writeText(shareText).then(() => {
+                    showNotification('Results copied to clipboard!', 'success');
+                });
+            }
+        }
+
+        // Fallback examples in case API fails
+        function getFallbackExamples() {
+            return {
+                "SCALE (AI/Learning)": {
+                    club_description: "SCALE (Student Club for AI and Learning Excellence) is a university organization dedicated to promoting artificial intelligence education and research, fostering collaboration between students interested in AI and machine learning, organizing workshops, hackathons, and networking events.",
+                    personal_vision: "I envision a logo that represents the interconnected nature of AI and learning, growth and progress in knowledge, modern, tech-forward aesthetic, professional yet approachable appearance."
+                },
+                "Green Future (Environmental)": {
+                    club_description: "Green Future is a student-led environmental sustainability club focused on promoting eco-friendly practices and environmental awareness, organizing campus clean-up events and sustainability workshops.",
+                    personal_vision: "I envision a logo that represents connection to nature and environmental consciousness, growth and renewal themes, community and collaboration."
+                },
+                "CodeCraft (Technology)": {
+                    club_description: "CodeCraft is a technology and programming club that teaches programming languages and software development, organizes coding competitions and hackathons, builds real-world projects and applications.",
+                    personal_vision: "I envision a logo that represents technology and innovation, problem-solving and creativity, community and collaboration, modern, clean design."
+                }
+            };
+        }
+    </script>
+</body>
+</html>
