@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Container Yard Planner — YARD CHECK</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow+Condensed:wght@400;600;700;900&display=swap');
+
+  :root {
+    --bg: #0d1117; --surface: #161b22; --surface2: #1c2330;
+    --border: #30363d; --text: #e6edf3; --muted: #7d8590; --accent: #f0b429;
+    --loaded:#f0b429; --loaded-bg:#2d2200;
+    --empty:#58a6ff;  --empty-bg:#001833;
+    --hold:#d946ef;   --hold-bg:#1e0025;
+    --detention:#ff5252; --detention-bg:#2d0000;
+    --ready:#4ade80;  --ready-bg:#00200f;
+    --backhaul:#fb923c; --backhaul-bg:#231000;
+    --transit:#38bdf8; --transit-bg:#001a2d;
+    --ltl:#a78bfa;    --ltl-bg:#150033;
+    --sb:#f472b6;     --sb-bg:#2d0018;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Barlow Condensed',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; }
+
+  header {
+    background:var(--surface); border-bottom:2px solid var(--accent);
+    padding:10px 18px; display:flex; align-items:center; justify-content:space-between;
+    position:sticky; top:0; z-index:100; gap:12px;
+  }
+  .logo { font-size:20px; font-weight:900; letter-spacing:2px; color:var(--accent); text-transform:uppercase; white-space:nowrap; }
+  .logo span { color:var(--text); }
+  .hright { display:flex; align-items:center; gap:10px; }
+  .live-badge { display:flex; align-items:center; gap:5px; font-family:'Share Tech Mono',monospace; font-size:11px; color:var(--muted); }
+  .live-dot { width:7px; height:7px; background:var(--ready); border-radius:50%; animation:blink 1.5s infinite; }
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+  #clock { font-family:'Share Tech Mono',monospace; font-size:12px; color:var(--text); }
+
+  .toolbar {
+    background:var(--surface2); border-bottom:1px solid var(--border);
+    padding:7px 18px; display:flex; gap:7px; align-items:center; flex-wrap:wrap;
+  }
+  .tlabel { font-size:10px; color:var(--muted); text-transform:uppercase; letter-spacing:1px; white-space:nowrap; }
+  .btn {
+    padding:4px 11px; border-radius:4px; font-size:12px;
+    font-family:'Barlow Condensed',sans-serif; font-weight:700;
+    cursor:pointer; border:1px solid var(--border); letter-spacing:.5px;
+    background:var(--surface); color:var(--text); transition:all .15s; white-space:nowrap;
+  }
+  .btn:hover { border-color:var(--accent); color:var(--accent); }
+  .btn.active { background:var(--accent); color:#000; border-color:var(--accent); }
+  .btn.danger { border-color:var(--detention); color:var(--detention); }
+  .search-box {
+    padding:4px 10px; border-radius:4px; background:var(--surface);
+    border:1px solid var(--border); color:var(--text);
+    font-size:12px; font-family:'Share Tech Mono',monospace; width:180px;
+  }
+  .search-box:focus { outline:none; border-color:var(--accent); }
+  .search-box::placeholder { color:var(--muted); }
+
+  .legend {
+    padding:5px 18px; display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+    border-bottom:1px solid var(--border); background:var(--bg);
+  }
+  .leg { display:flex; align-items:center; gap:4px; font-size:10px; text-transform:uppercase; letter-spacing:.5px; cursor:pointer; padding:2px 5px; border-radius:3px; border:1px solid transparent; white-space:nowrap; }
+  .leg:hover { border-color:var(--border); }
+  .leg-dot { width:9px; height:9px; border-radius:2px; flex-shrink:0; }
+
+  .main { display:flex; height:calc(100vh - 116px); }
+
+  .sidebar {
+    width:210px; flex-shrink:0; background:var(--surface);
+    border-right:2px solid var(--border); overflow-y:auto; display:flex; flex-direction:column;
+  }
+  .sidebar-sec { border-bottom:1px solid var(--border); }
+  .sidebar-sec-title {
+    padding:7px 10px; font-size:10px; font-weight:700; letter-spacing:2px;
+    text-transform:uppercase; color:var(--muted); position:sticky; top:0;
+    background:var(--surface); z-index:5; display:flex; justify-content:space-between; align-items:center;
+  }
+  .badge { background:var(--border); border-radius:10px; padding:1px 7px; font-size:10px; color:var(--text); }
+  .pool { padding:6px; min-height:50px; flex:1; }
+  .pool.drag-over { background:rgba(240,180,41,.07); outline:2px dashed var(--accent); outline-offset:-3px; border-radius:4px; }
+  .notice-board {
+    padding:7px 9px; margin:6px; border-radius:5px;
+    background:var(--surface2); border:1px solid var(--border);
+    font-size:10px; line-height:1.7; color:var(--muted);
+  }
+  .notice-board strong { color:var(--text); display:block; margin-bottom:3px; letter-spacing:1px; font-size:10px; }
+  .ni { display:flex; gap:5px; align-items:flex-start; }
+  .ni-dot { width:6px; height:6px; border-radius:50%; flex-shrink:0; margin-top:4px; }
+
+  .yard { flex:1; overflow:auto; padding:14px; display:flex; flex-direction:column; gap:18px; padding-bottom:42px; }
+  .zone-label {
+    font-size:10px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--muted);
+    margin-bottom:7px; padding-bottom:4px; border-bottom:1px solid var(--border);
+    display:flex; align-items:center; gap:8px;
+  }
+  .zone-count { background:var(--surface2); border-radius:10px; padding:1px 8px; font-size:10px; color:var(--accent); }
+  .dock-row { display:flex; flex-wrap:wrap; gap:7px; }
+
+  .dock-slot {
+    width:136px; min-height:76px; background:var(--surface);
+    border:1px dashed var(--border); border-radius:6px;
+    display:flex; flex-direction:column; position:relative; transition:all .12s;
+  }
+  .dock-slot.drag-over { border-color:var(--accent); background:rgba(240,180,41,.07); box-shadow:0 0 0 2px var(--accent); }
+  .dock-slot.occupied { border-style:solid; border-color:rgba(255,255,255,.07); }
+  .slot-id { font-family:'Share Tech Mono',monospace; font-size:9px; color:var(--muted); padding:3px 5px; line-height:1; }
+
+  .trailer-card {
+    margin:2px 3px 3px; border-radius:4px; padding:5px 7px;
+    cursor:grab; user-select:none; flex:1;
+    display:flex; flex-direction:column; gap:2px;
+    transition:transform .1s, box-shadow .1s; font-size:11px; line-height:1.3; position:relative;
+  }
+  .trailer-card:active { cursor:grabbing; }
+  .trailer-card.dragging { opacity:.4; transform:rotate(2deg); }
+  .trailer-card:hover { transform:translateY(-1px); box-shadow:0 4px 14px rgba(0,0,0,.6); }
+  .trailer-id { font-family:'Share Tech Mono',monospace; font-size:11px; font-weight:700; }
+  .trailer-dest { font-size:10px; letter-spacing:.5px; text-transform:uppercase; opacity:.9; }
+  .trailer-date { font-size:9px; opacity:.6; font-family:'Share Tech Mono',monospace; }
+  .trailer-flags { display:flex; gap:3px; flex-wrap:wrap; margin-top:2px; }
+  .flag { font-size:8px; padding:1px 4px; border-radius:2px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; }
+  .double-stacked::after { content:'×2'; position:absolute; top:3px; right:4px; font-size:8px; font-weight:700; color:var(--accent); font-family:'Share Tech Mono',monospace; }
+
+  .s-loaded    { background:var(--loaded-bg);    color:var(--loaded);    border:1px solid rgba(240,180,41,.35); }
+  .s-empty     { background:var(--empty-bg);     color:var(--empty);     border:1px solid rgba(88,166,255,.35); }
+  .s-hold      { background:var(--hold-bg);      color:var(--hold);      border:1px solid rgba(217,70,239,.35); }
+  .s-detention { background:var(--detention-bg); color:var(--detention); border:1px solid rgba(255,82,82,.35); }
+  .s-ready     { background:var(--ready-bg);     color:var(--ready);     border:1px solid rgba(74,222,128,.35); }
+  .s-backhaul  { background:var(--backhaul-bg);  color:var(--backhaul);  border:1px solid rgba(251,146,60,.35); }
+  .s-transit   { background:var(--transit-bg);   color:var(--transit);   border:1px solid rgba(56,189,248,.35); }
+  .s-ltl       { background:var(--ltl-bg);       color:var(--ltl);       border:1px solid rgba(167,139,250,.35); }
+  .s-sb        { background:var(--sb-bg);        color:var(--sb);        border:1px solid rgba(244,114,182,.35); }
+  .s-save      { background:#0d1f1a; color:#6ee7b7; border:1px solid rgba(110,231,183,.3); }
+
+  .stats-bar {
+    background:var(--surface2); border-top:1px solid var(--border);
+    padding:5px 18px; display:flex; gap:16px; align-items:center;
+    font-family:'Share Tech Mono',monospace; font-size:11px;
+    position:fixed; bottom:0; left:0; right:0; z-index:50;
+  }
+  .stat { display:flex; gap:5px; align-items:center; }
+  .sv { font-weight:700; }
+
+  .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,.75); z-index:200; display:none; align-items:center; justify-content:center; }
+  .modal-overlay.open { display:flex; }
+  .modal { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:22px; width:360px; box-shadow:0 24px 64px rgba(0,0,0,.9); }
+  .modal h3 { font-size:16px; margin-bottom:14px; color:var(--accent); letter-spacing:1px; display:flex; align-items:center; justify-content:space-between; }
+  .modal label { display:block; font-size:10px; text-transform:uppercase; letter-spacing:1px; color:var(--muted); margin-bottom:3px; margin-top:10px; }
+  .modal input, .modal select {
+    width:100%; padding:6px 9px; border-radius:4px;
+    background:var(--bg); border:1px solid var(--border); color:var(--text);
+    font-size:12px; font-family:'Share Tech Mono',monospace;
+  }
+  .modal input:focus, .modal select:focus { outline:none; border-color:var(--accent); }
+  .modal-actions { display:flex; gap:8px; margin-top:18px; justify-content:flex-end; }
+
+  ::-webkit-scrollbar { width:5px; height:5px; }
+  ::-webkit-scrollbar-track { background:var(--bg); }
+  ::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
+  ::-webkit-scrollbar-thumb:hover { background:var(--muted); }
+  .sidebar .trailer-card { margin:0 0 5px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Container<span>Yard</span> <span style="font-size:13px;color:var(--muted);font-weight:400">· YARD CHECK</span></div>
+  <div class="hright">
+    <div class="live-badge"><div class="live-dot"></div>LIVE BOARD</div>
+    <div id="clock"></div>
+  </div>
+</header>
+
+<div class="toolbar">
+  <span class="tlabel">Filter:</span>
+  <button class="btn active" onclick="setFilter('all',this)">All</button>
+  <button class="btn" onclick="setFilter('loaded',this)" style="color:var(--loaded)">Loaded</button>
+  <button class="btn" onclick="setFilter('empty',this)" style="color:var(--empty)">Empty</button>
+  <button class="btn" onclick="setFilter('ready',this)" style="color:var(--ready)">Ready</button>
+  <button class="btn" onclick="setFilter('hold',this)" style="color:var(--hold)">Hold</button>
+  <button class="btn" onclick="setFilter('detention',this)" style="color:var(--detention)">Detention</button>
+  <button class="btn" onclick="setFilter('backhaul',this)" style="color:var(--backhaul)">Backhaul</button>
+  <button class="btn" onclick="setFilter('transit',this)" style="color:var(--transit)">Transit</button>
+  <div style="flex:1"></div>
+  <input class="search-box" placeholder="🔍 Trailer / dest / notes…" oninput="setSearch(this.value)" />
+  <button class="btn active" onclick="openModal(null)">+ Add Trailer</button>
+</div>
+
+<div class="legend">
+  <span style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Key:</span>
+  <div class="leg"><div class="leg-dot" style="background:var(--loaded)"></div>Loaded (L)</div>
+  <div class="leg"><div class="leg-dot" style="background:var(--empty)"></div>Empty (E)</div>
+  <div class="leg"><div class="leg-dot" style="background:var(--ready)"></div>Ready</div>
+  <div class="leg"><div class="leg-dot" style="background:var(--hold)"></div>Hold</div>
+  <div class="leg"><div class="leg-dot" style="background:var(--detention)"></div>Detention ★</div>
+  <div class="leg"><div class="leg-dot" style="background:var(--backhaul)"></div>Backhaul L/H</div>
+  <div class="leg"><div class="leg-dot" style="background:var(--transit)"></div>Transit (T)</div>
+  <div class="leg"><div class="leg-dot" style="background:var(--ltl)"></div>LTL</div>
+  <div class="leg"><div class="leg-dot" style="background:var(--sb)"></div>South Bound</div>
+  <span style="margin-left:6px;font-size:10px;color:var(--muted)">(X) = Double Stacked</span>
+</div>
+
+<div class="main">
+  <div class="sidebar">
+    <div class="sidebar-sec">
+      <div class="sidebar-sec-title">Notice Board</div>
+      <div class="notice-board">
+        <strong>OPERATIONAL NOTES</strong>
+        <div class="ni"><div class="ni-dot" style="background:var(--detention)"></div><span>(★) = Called &amp; Notified of Detention</span></div>
+        <div class="ni"><div class="ni-dot" style="background:var(--accent)"></div><span>Small Box Truck on yard</span></div>
+        <div class="ni"><div class="ni-dot" style="background:var(--accent)"></div><span>Truck 127 &amp; Truck 143</span></div>
+        <div class="ni"><div class="ni-dot" style="background:var(--muted)"></div><span>MATZ 614010 E CHASSIS</span></div>
+        <div class="ni"><div class="ni-dot" style="background:#6ee7b7"></div><span>AWNING FLATS / STRIPS</span></div>
+        <div class="ni"><div class="ni-dot" style="background:var(--hold)"></div><span>Middle West Side active</span></div>
+      </div>
+    </div>
+    <div class="sidebar-sec" style="flex:1;display:flex;flex-direction:column">
+      <div class="sidebar-sec-title">
+        Unassigned Pool <span class="badge" id="pool-count">0</span>
+      </div>
+      <div class="pool" id="pool"
+           ondragover="onDragOver(event,'pool')"
+           ondragleave="onDragLeave(event)"
+           ondrop="onDrop(event,'pool')">
+      </div>
+    </div>
+  </div>
+
+  <div class="yard" id="yard"></div>
+</div>
+
+<div class="stats-bar">
+  <div class="stat">Total <span class="sv" id="s-total" style="color:var(--accent)">0</span></div>
+  <div class="stat">Loaded <span class="sv" id="s-loaded" style="color:var(--loaded)">0</span></div>
+  <div class="stat">Empty <span class="sv" id="s-empty" style="color:var(--empty)">0</span></div>
+  <div class="stat">Ready <span class="sv" id="s-ready" style="color:var(--ready)">0</span></div>
+  <div class="stat">Hold <span class="sv" id="s-hold" style="color:var(--hold)">0</span></div>
+  <div class="stat">Det <span class="sv" id="s-detention" style="color:var(--detention)">0</span></div>
+  <div class="stat">B/H <span class="sv" id="s-backhaul" style="color:var(--backhaul)">0</span></div>
+  <div class="stat">Transit <span class="sv" id="s-transit" style="color:var(--transit)">0</span></div>
+  <div style="margin-left:auto;color:var(--muted);font-size:10px">Drag to move ▸ Click card to edit</div>
+</div>
+
+<div class="modal-overlay" id="modal-overlay" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <h3 id="modal-title">ADD TRAILER <span style="font-size:12px;color:var(--muted);cursor:pointer" onclick="closeModal()">✕</span></h3>
+    <label>Trailer ID</label>
+    <input id="f-id" placeholder="e.g. SPAN 401748" />
+    <label>Destination</label>
+    <input id="f-dest" placeholder="FBX, VALLEY, KENAI, KODIAK, DUTCH…" />
+    <label>Status</label>
+    <select id="f-status">
+      <option value="loaded">Loaded (L)</option>
+      <option value="empty">Empty (E)</option>
+      <option value="ready">Ready to Deliver</option>
+      <option value="hold">Hold</option>
+      <option value="detention">Detention ★</option>
+      <option value="backhaul">Backhaul L/H</option>
+      <option value="transit">In Transit (T)</option>
+      <option value="ltl">LTL</option>
+      <option value="sb">South Bound</option>
+      <option value="save">Save for WHS</option>
+    </select>
+    <label>Date</label>
+    <input id="f-date" placeholder="e.g. 9/5" />
+    <label>Notes / Flags</label>
+    <input id="f-notes" placeholder="e.g. EXP DOT, SHORTBILL, L/H, OWN" />
+    <label style="flex-direction:row;display:flex;align-items:center;gap:6px;margin-top:10px">
+      <input type="checkbox" id="f-double" style="width:auto"> Double Stacked (X)
+    </label>
+    <div class="modal-actions">
+      <button class="btn danger" id="btn-delete" onclick="deleteTrailer()" style="display:none;margin-right:auto">Delete</button>
+      <button class="btn" onclick="closeModal()">Cancel</button>
+      <button class="btn active" onclick="saveTrailer()">Save</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══════════ ZONES ════════════════════════════════════════
+const ZONES = [
+  { id:'y-main',  label:'EAST SIDE MIDDLE — Y DOORS (127–137)',
+    slots:['Y-127','Y-128','Y-129','Y-130','Y-131','Y-132','Y-133','Y-134','Y-135','Y-136','Y-137'] },
+  { id:'y-ext',   label:'EAST SIDE — Y DOORS (145–155)',
+    slots:['Y-145','Y-146','Y-147','Y-148','Y-149','Y-150','Y-151','Y-152','Y-153','Y-154','Y-155'] },
+  { id:'x-doors', label:'WEST SIDE — X DOORS (145–155)',
+    slots:['X-145','X-146','X-147','X-148','X-149','X-150','X-151','X-152','X-153','X-154','X-155'] },
+  { id:'dr-doors',label:'DRIVE-IN DOORS (DR-34 to DR-39)',
+    slots:['DR-34','DR-35','DR-36','DR-37','DR-38','DR-39'] },
+  { id:'y-lower', label:'YARD EXTENSIONS (Y-71 to Y-73)',
+    slots:['Y-71','Y-72','Y-73'] },
+];
+
+// ═══════════ TRAILERS (from YARD CHECK sheet) ═════════════
+let trailers = [
+  // ── Y-127 column (East Side Middle, Fairbanks/Valley section) ─────────────
+  { id:'SPAN 400112',   dest:'VALLEY', status:'loaded',   date:'9/5',  notes:'(L)',              double:false, slot:'Y-127' },
+  { id:'SPAN 401749',   dest:'VALLEY', status:'loaded',   date:'9/3',  notes:'(L)',              double:false, slot:'Y-128' },
+  { id:'SPAN 410204',   dest:'VALLEY', status:'loaded',   date:'9/10', notes:'(L)',              double:false, slot:'Y-129' },
+  { id:'SPAN 401748',   dest:'FBX',    status:'loaded',   date:'8/19', notes:'E (L)',            double:false, slot:'Y-130' },
+  { id:'MATU 278383',   dest:'FBX',    status:'transit',  date:'8/18', notes:'E (T)',            double:false, slot:'Y-131' },
+  { id:'SPAN 401701',   dest:'FBX',    status:'loaded',   date:'9/10', notes:'(L)',              double:false, slot:'Y-132' },
+  { id:'MATU 265682',   dest:'FBX',    status:'transit',  date:'8/18', notes:'E (T)',            double:false, slot:'Y-133' },
+  { id:'MATU 272905',   dest:'FBX',    status:'empty',    date:'8/18', notes:'E (L)',            double:false, slot:'Y-134' },
+  { id:'PAFX 500915',   dest:'FBX',    status:'loaded',   date:'9/10', notes:'(L)',              double:false, slot:'Y-135' },
+  { id:'PAFX 500910',   dest:'FBX',    status:'loaded',   date:'9/3',  notes:'(L)',              double:false, slot:'Y-136' },
+  { id:'MATU 272905-B', dest:'FBX',    status:'empty',    date:'8/18', notes:'E (L)',            double:false, slot:'Y-137' },
+  // ── Y-154 / Y-155 ─────────────────────────────────────────────────────────
+  { id:'TCNU 695693',   dest:'FBX',    status:'transit',  date:'',     notes:'E (T)',            double:false, slot:'Y-154' },
+  { id:'MATU 520267',   dest:'VALLEY', status:'ready',    date:'',     notes:'E (L)(R)',         double:false, slot:'Y-155' },
+  // ── X-154 / X-155 ─────────────────────────────────────────────────────────
+  { id:'SPAN 401801',   dest:'FBX',    status:'transit',  date:'',     notes:'E (T)',            double:false, slot:'X-154' },
+  { id:'MATU 274401',   dest:'FBX',    status:'empty',    date:'',     notes:'E (L)',            double:false, slot:'X-155' },
+
+  // ═══════════ UNASSIGNED POOL (left column of the spreadsheet) ═════════════
+  // Red-tag / detention trailers
+  { id:'MSTS 228123',   dest:'KODIAK', status:'detention',date:'',     notes:'FOR KODIAK & TRUCK 132 ★', double:false, slot:null },
+  // Hold trailers
+  { id:'BILLS HOLD',    dest:'',       status:'hold',     date:'',     notes:'Dave Cate',        double:false, slot:null },
+  { id:'BILLS HOLD 325',dest:'',       status:'hold',     date:'',     notes:'Dave Cate (325)',  double:false, slot:null },
+  // Backhaul / L/H trailers
+  { id:'TCNU 562159',   dest:'FBX',    status:'backhaul', date:'',     notes:'FBX L/H',          double:false, slot:null },
+  { id:'SPAN 401811',   dest:'FBX',    status:'backhaul', date:'',     notes:'FBX L/H',          double:false, slot:null },
+  { id:'PAFX 500947',   dest:'VALLEY', status:'backhaul', date:'',     notes:'E (L) 4 sale ty',  double:false, slot:null },
+  // Transit / misc
+  { id:'MSTS 228124',   dest:'KODIAK', status:'transit',  date:'',     notes:'FOR KODIAK',       double:false, slot:null },
+  { id:'W 123',         dest:'',       status:'transit',  date:'',     notes:'W/ EXP DOT',       double:false, slot:null },
+  { id:'MATU 513648',   dest:'',       status:'transit',  date:'',     notes:'(T) own',          double:false, slot:null },
+  { id:'MATU 513603',   dest:'',       status:'transit',  date:'',     notes:'(T) own',          double:false, slot:null },
+  // Loaded pool trailers
+  { id:'MATU 273332',   dest:'VALLEY', status:'loaded',   date:'',     notes:'VALLEY',           double:false, slot:null },
+  { id:'PAFX 400028',   dest:'VALLEY', status:'loaded',   date:'',     notes:'VALLEY L/H (L)',   double:false, slot:null },
+  { id:'DBCU 945338',   dest:'S.O.C.', status:'loaded',   date:'8/18', notes:'VALLEY (L)',       double:false, slot:null },
+  // Awning / strip trailers
+  { id:'PAFX 400022',   dest:'',       status:'empty',    date:'',     notes:'AWNING',           double:false, slot:null },
+  { id:'400041 STRIP',  dest:'',       status:'empty',    date:'',     notes:'STRIP',            double:false, slot:null },
+];
+
+// ═══════════ STATE ════════════════════════════════════════
+let dragId = null, editingId = null, filterSt = 'all', searchQ = '';
+
+// ═══════════ RENDER ═══════════════════════════════════════
+function render() { renderYard(); renderPool(); renderStats(); }
+
+function renderYard() {
+  const yard = document.getElementById('yard');
+  yard.innerHTML = '';
+  ZONES.forEach(z => {
+    const occ = z.slots.filter(s => trailers.find(t => t.slot === s)).length;
+    const block = document.createElement('div');
+    block.innerHTML = `<div class="zone-label">${z.label} <span class="zone-count">${occ}/${z.slots.length}</span></div>`;
+    const row = document.createElement('div');
+    row.className = 'dock-row';
+    z.slots.forEach(sid => {
+      const slot = document.createElement('div');
+      slot.className = 'dock-slot';
+      slot.dataset.slot = sid;
+      slot.innerHTML = `<div class="slot-id">${sid}</div>`;
+      const t = trailers.find(t => t.slot === sid);
+      if (t) { slot.classList.add('occupied'); slot.appendChild(makeCard(t)); }
+      slot.addEventListener('dragover', e => onDragOver(e, sid));
+      slot.addEventListener('dragleave', onDragLeave);
+      slot.addEventListener('drop', e => onDrop(e, sid));
+      row.appendChild(slot);
+    });
+    block.appendChild(row);
+    yard.appendChild(block);
+  });
+}
+
+function renderPool() {
+  const pool = document.getElementById('pool');
+  pool.innerHTML = '';
+  const unassigned = trailers.filter(t => !t.slot);
+  unassigned.forEach(t => pool.appendChild(makeCard(t)));
+  document.getElementById('pool-count').textContent = unassigned.length;
+}
+
+function makeCard(t) {
+  const card = document.createElement('div');
+  card.className = `trailer-card s-${t.status}${t.double ? ' double-stacked' : ''}`;
+  card.dataset.tid = t.id;
+  card.draggable = true;
+
+  const mf = filterSt === 'all' || t.status === filterSt;
+  const q = searchQ.toLowerCase();
+  const ms = !q || t.id.toLowerCase().includes(q) || t.dest.toLowerCase().includes(q) || t.notes.toLowerCase().includes(q);
+  if (!mf || !ms) card.style.opacity = '0.1';
+
+  const SL = {loaded:'LOADED',empty:'EMPTY',hold:'HOLD',detention:'DET ★',ready:'READY',backhaul:'B/H',transit:'TRANSIT',ltl:'LTL',sb:'S/B',save:'WHS'};
+  card.innerHTML = `
+    <div class="trailer-id">${t.id}</div>
+    ${t.dest ? `<div class="trailer-dest">${t.dest}</div>` : ''}
+    ${t.date ? `<div class="trailer-date">${t.date}</div>` : ''}
+    <div class="trailer-flags">
+      <span class="flag s-${t.status}">${SL[t.status]||t.status.toUpperCase()}</span>
+      ${t.notes ? `<span class="flag" style="background:rgba(255,255,255,.07);color:var(--muted)">${t.notes}</span>` : ''}
+    </div>`;
+
+  card.addEventListener('dragstart', e => {
+    dragId = t.id; card.classList.add('dragging'); e.dataTransfer.effectAllowed = 'move';
+  });
+  card.addEventListener('dragend', () => {
+    dragId = null; card.classList.remove('dragging');
+    document.querySelectorAll('.drag-over').forEach(el => el.classList.remove('drag-over'));
+  });
+  card.addEventListener('click', () => openModal(t.id));
+  return card;
+}
+
+// ═══════════ DRAG & DROP ══════════════════════════════════
+function onDragOver(e, sid) { e.preventDefault(); e.currentTarget.classList.add('drag-over'); }
+function onDragLeave(e) { e.currentTarget.classList.remove('drag-over'); }
+function onDrop(e, sid) {
+  e.preventDefault(); e.currentTarget.classList.remove('drag-over');
+  if (!dragId) return;
+  const t = trailers.find(x => x.id === dragId); if (!t) return;
+  if (sid !== 'pool') {
+    const occ = trailers.find(x => x.slot === sid);
+    if (occ) occ.slot = t.slot;
+    t.slot = sid;
+  } else { t.slot = null; }
+  render();
+}
+
+// ═══════════ FILTER / SEARCH ══════════════════════════════
+function setFilter(s, btn) {
+  filterSt = s;
+  document.querySelectorAll('.toolbar .btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active'); render();
+}
+function setSearch(q) { searchQ = q; render(); }
+
+// ═══════════ MODAL ════════════════════════════════════════
+function openModal(tid) {
+  editingId = tid || null;
+  const t = tid ? trailers.find(x => x.id === tid) : null;
+  document.getElementById('modal-title').innerHTML = (t ? 'EDIT TRAILER' : 'ADD TRAILER') +
+    ' <span style="font-size:12px;color:var(--muted);cursor:pointer" onclick="closeModal()">✕</span>';
+  document.getElementById('f-id').value      = t ? t.id     : '';
+  document.getElementById('f-dest').value    = t ? t.dest   : '';
+  document.getElementById('f-status').value  = t ? t.status : 'loaded';
+  document.getElementById('f-date').value    = t ? t.date   : '';
+  document.getElementById('f-notes').value   = t ? t.notes  : '';
+  document.getElementById('f-double').checked= t ? t.double : false;
+  document.getElementById('f-id').disabled   = !!t;
+  document.getElementById('btn-delete').style.display = t ? 'block' : 'none';
+  document.getElementById('modal-overlay').classList.add('open');
+}
+function closeModal() { document.getElementById('modal-overlay').classList.remove('open'); editingId = null; }
+function closeModalOutside(e) { if (e.target === document.getElementById('modal-overlay')) closeModal(); }
+function saveTrailer() {
+  const id    = document.getElementById('f-id').value.trim().toUpperCase();
+  const dest  = document.getElementById('f-dest').value.trim().toUpperCase();
+  const status= document.getElementById('f-status').value;
+  const date  = document.getElementById('f-date').value.trim();
+  const notes = document.getElementById('f-notes').value.trim();
+  const dbl   = document.getElementById('f-double').checked;
+  if (!id) return alert('Trailer ID required');
+  if (editingId) {
+    const t = trailers.find(x => x.id === editingId);
+    if (t) Object.assign(t, {dest,status,date,notes,double:dbl});
+  } else {
+    if (trailers.find(x => x.id === id)) return alert('Trailer ID already exists');
+    trailers.push({id,dest,status,date,notes,double:dbl,slot:null});
+  }
+  closeModal(); render();
+}
+function deleteTrailer() {
+  if (!editingId || !confirm('Remove this trailer?')) return;
+  trailers = trailers.filter(x => x.id !== editingId);
+  closeModal(); render();
+}
+
+// ═══════════ STATS ════════════════════════════════════════
+function renderStats() {
+  const c = s => trailers.filter(t => t.status === s).length;
+  document.getElementById('s-total').textContent    = trailers.length;
+  document.getElementById('s-loaded').textContent   = c('loaded');
+  document.getElementById('s-empty').textContent    = c('empty');
+  document.getElementById('s-ready').textContent    = c('ready');
+  document.getElementById('s-hold').textContent     = c('hold');
+  document.getElementById('s-detention').textContent= c('detention');
+  document.getElementById('s-backhaul').textContent = c('backhaul');
+  document.getElementById('s-transit').textContent  = c('transit');
+}
+
+// ═══════════ CLOCK ════════════════════════════════════════
+function tick() {
+  const n = new Date();
+  document.getElementById('clock').textContent =
+    n.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'}) + '  ' +
+    n.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+}
+setInterval(tick,1000); tick();
+render();
+</script>
+</body>
+</html>
