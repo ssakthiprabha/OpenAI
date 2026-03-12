@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Container Yard Planner — YARD CHECK</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow+Condensed:wght@400;600;700;900&display=swap');
+
+  :root {
+    --bg: #0d1117; --surface: #161b22; --surface2: #1c2330;
+    --border: #30363d; --text: #e6edf3; --muted: #7d8590; --accent: #f0b429;
+    --loaded:#f0b429; --loaded-bg:#2d2200;
+    --empty:#58a6ff;  --empty-bg:#001833;
+    --hold:#d946ef;   --hold-bg:#1e0025;
+    --detention:#ff5252; --detention-bg:#2d0000;
+    --ready:#4ade80;  --ready-bg:#00200f;
+    --backhaul:#fb923c; --backhaul-bg:#231000;
+    --transit:#38bdf8; --transit-bg:#001a2d;
+    --ltl:#a78bfa;    --ltl-bg:#150033;
+    --sb:#f472b6;     --sb-bg:#2d0018;
+    --ai:#00e5b4;     --ai-bg:#001a13;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Barlow Condensed',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; }
+
+  header {
+    background:var(--surface); border-bottom:2px solid var(--accent);
+    padding:10px 18px; display:flex; align-items:center; justify-content:space-between;
+    position:sticky; top:0; z-index:100; gap:12px;
+  }
+  .logo { font-size:20px; font-weight:900; letter-spacing:2px; color:var(--accent); text-transform:uppercase; white-space:nowrap; }
+  .logo span { color:var(--text); }
+  .hright { display:flex; align-items:center; gap:10px; }
+  .live-badge { display:flex; align-items:center; gap:5px; font-family:'Share Tech Mono',monospace; font-size:11px; color:var(--muted); }
+  .live-dot { width:7px; height:7px; background:var(--ready); border-radius:50%; animation:blink 1.5s infinite; }
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+  #clock { font-family:'Share Tech Mono',monospace; font-size:12px; color:var(--text); }
+
+  .toolbar {
+    background:var(--surface2); border-bottom:1px solid var(--border);
+    padding:7px 18px; display:flex; gap:7px; align-items:center; flex-wrap:wrap;
+  }
+  .tlabel { font-size:10px; color:var(--muted); text-transform:uppercase; letter-spacing:1px; white-space:nowrap; }
+  .btn {
+    padding:4px 11px; border-radius:4px; font-size:12px;
+    font-family:'Barlow Condensed',sans-serif; font-weight:700;
+    cursor:pointer; border:1px solid var(--border); letter-spacing:.5px;
+    background:var(--surface); color:var(--text); transition:all .15s; white-space:nowrap;
+  }
+  .btn:hover { border-color:var(--accent); color:var(--accent); }
+  .btn.active { background:var(--accent); color:#000; border-color:var(--accent); }
+  .btn.danger { border-color:var(--detention); color:var(--detention); }
+  .btn.ai-btn { border-color:var(--ai); color:var(--ai); }
+  .btn.ai-btn:hover, .btn.ai-btn.active { background:var(--ai); color:#000; }
+  .search-box {
+    padding:4px 10px; border-radius:4px; background:var(--surface);
+    border:1px solid var(--border); color:var(--text);
+    font-size:12px; font-family:'Share Tech Mono',monospace; width:180px;
+  }
+  .search-box:focus { outline:none; border-color:var(--accent); }
+  .search-box::placeholder { color:var(--muted); }
+
+  .legend {
+    padding:5px 18px; display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+    border-bottom:1px solid var(--border); background:var(--bg);
+  }
+  .leg { display:flex; align-items:center; gap:4px; font-size:10px; text-transform:uppercase; letter-spacing:.5px; cursor:pointer; padding:2px 5px; border-radius:3px; border:1px solid transparent; white-space:nowrap; }
+  .leg:hover { border-color:var(--border); }
+  .leg-dot { width:9px; height:9px; border-radius:2px; flex-shrink:0; }
+
+  /* ── MAIN LAYOUT ─────────────────────────────── */
+  .main { display:flex; height:calc(100vh - 116px); }
+
+  .sidebar {
+    width:210px; flex-shrink:0; background:var(--surface);
+    border-right:2px solid var(--border); overflow-y:auto; display:flex; flex-direction:column;
+  }
+  .sidebar-sec { border-bottom:1px solid var(--border); }
+  .sidebar-sec-title {
+    padding:7px 10px; font-size:10px; font-weight:700; letter-spacing:2px;
+    text-transform:uppercase; color:var(--muted); position:sticky; top:0;
+    background:var(--surface); z-index:5; display:flex; justify-content:space-between; align-items:center;
+  }
+  .badge { background:var(--border); border-radius:10px; padding:1px 7px; font-size:10px; color:var(--text); }
+  .pool { padding:6px; min-height:50px; flex:1; }
+  .pool.drag-over { background:rgba(240,180,41,.07); outline:2px dashed var(--accent); outline-offset:-3px; border-radius:4px; }
+  .notice-board {
+    padding:7px 9px; margin:6px; border-radius:5px;
+    background:var(--surface2); border:1px solid var(--border);
+    font-size:10px; line-height:1.7; color:var(--muted);
+  }
+  .notice-board strong { color:var(--text); display:block; margin-bottom:3px; letter-spacing:1px; font-size:10px; }
+  .ni { display:flex; gap:5px; align-items:flex-start; }
+  .ni-dot { width:6px; height:6px; border-radius:50%; flex-shrink:0; margin-top:4px; }
+
+  .yard { flex:1; overflow:auto; padding:14px; display:flex; flex-direction:column; gap:18px; padding-bottom:42px; }
+  .zone-label {
+    font-size:10px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--muted);
+    margin-bottom:7px; padding-bottom:4px; border-bottom:1px solid var(--border);
+    display:flex; align-items:center; gap:8px;
+  }
+  .zone-count { background:var(--surface2); border-radius:10px; padding:1px 8px; font-size:10px; color:var(--accent); }
+  .dock-row { display:flex; flex-wrap:wrap; gap:7px; }
+
+  .dock-slot {
+    width:136px; min-height:76px; background:var(--surface);
+    border:1px dashed var(--border); border-radius:6px;
+    display:flex; flex-direction:column; position:relative; transition:all .12s;
+  }
+  .dock-slot.drag-over { border-color:var(--accent); background:rgba(240,180,41,.07); box-shadow:0 0 0 2px var(--accent); }
+  .dock-slot.occupied { border-style:solid; border-color:rgba(255,255,255,.07); }
+  .slot-id { font-family:'Share Tech Mono',monospace; font-size:9px; color:var(--muted); padding:3px 5px; line-height:1; }
+
+  .trailer-card {
+    margin:2px 3px 3px; border-radius:4px; padding:5px 7px;
+    cursor:grab; user-select:none; flex:1;
+    display:flex; flex-direction:column; gap:2px;
+    transition:transform .1s, box-shadow .1s; font-size:11px; line-height:1.3; position:relative;
+  }
+  .trailer-card:active { cursor:grabbing; }
+  .trailer-card.dragging { opacity:.4; transform:rotate(2deg); }
+  .trailer-card:hover { transform:translateY(-1px); box-shadow:0 4px 14px rgba(0,0,0,.6); }
+  .trailer-id { font-family:'Share Tech Mono',monospace; font-size:11px; font-weight:700; }
+  .trailer-dest { font-size:10px; letter-spacing:.5px; text-transform:uppercase; opacity:.9; }
+  .trailer-date { font-size:9px; opacity:.6; font-family:'Share Tech Mono',monospace; }
+  .trailer-flags { display:flex; gap:3px; flex-wrap:wrap; margin-top:2px; }
+  .flag { font-size:8px; padding:1px 4px; border-radius:2px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; }
+  .double-stacked::after { content:'×2'; position:absolute; top:3px; right:4px; font-size:8px; font-weight:700; color:var(--accent); font-family:'Share Tech Mono',monospace; }
+
+  .s-loaded    { background:var(--loaded-bg);    color:var(--loaded);    border:1px solid rgba(240,180,41,.35); }
+  .s-empty     { background:var(--empty-bg);     color:var(--empty);     border:1px solid rgba(88,166,255,.35); }
+  .s-hold      { background:var(--hold-bg);      color:var(--hold);      border:1px solid rgba(217,70,239,.35); }
+  .s-detention { background:var(--detention-bg); color:var(--detention); border:1px solid rgba(255,82,82,.35); }
+  .s-ready     { background:var(--ready-bg);     color:var(--ready);     border:1px solid rgba(74,222,128,.35); }
+  .s-backhaul  { background:var(--backhaul-bg);  color:var(--backhaul);  border:1px solid rgba(251,146,60,.35); }
+  .s-transit   { background:var(--transit-bg);   color:var(--transit);   border:1px solid rgba(56,189,248,.35); }
+  .s-ltl       { background:var(--ltl-bg);       color:var(--ltl);       border:1px solid rgba(167,139,250,.35); }
+  .s-sb        { background:var(--sb-bg);        color:var(--sb);        border:1px solid rgba(244,114,182,.35); }
+  .s-save      { background:#0d1f1a; color:#6ee7b7; border:1px solid rgba(110,231,183,.3); }
+
+  /* ── AI PANEL ─────────────────────────────────── */
+  .ai-panel {
+    width:320px; flex-shrink:0; background:var(--surface);
+    border-left:2px solid var(--ai); display:flex; flex-direction:column;
+    transition:width .2s; overflow:hidden;
+  }
+  .ai-panel.collapsed { width:0; border-left-width:0; }
+  .ai-header {
+    padding:8px 12px; background:var(--ai-bg); border-bottom:1px solid rgba(0,229,180,.2);
+    display:flex; align-items:center; gap:8px; flex-shrink:0;
+  }
+  .ai-header-title { font-size:11px; font-weight:700; letter-spacing:2px; color:var(--ai); text-transform:uppercase; flex:1; }
+  .ai-dot { width:7px; height:7px; background:var(--ai); border-radius:50%; animation:blink 2s infinite; }
+  .ai-messages { flex:1; overflow-y:auto; padding:10px; display:flex; flex-direction:column; gap:8px; }
+  .ai-msg { border-radius:6px; padding:8px 10px; font-size:11px; line-height:1.6; max-width:100%; }
+  .ai-msg.user { background:var(--surface2); color:var(--text); align-self:flex-end; border:1px solid var(--border); }
+  .ai-msg.assistant { background:var(--ai-bg); color:var(--ai); border:1px solid rgba(0,229,180,.2); align-self:flex-start; white-space:pre-wrap; }
+  .ai-msg.thinking { color:var(--muted); font-style:italic; background:var(--surface2); border:1px dashed var(--border); }
+  .ai-input-area { padding:8px; border-top:1px solid rgba(0,229,180,.2); display:flex; gap:6px; flex-shrink:0; }
+  .ai-input {
+    flex:1; padding:6px 9px; border-radius:4px;
+    background:var(--bg); border:1px solid rgba(0,229,180,.3); color:var(--text);
+    font-size:11px; font-family:'Share Tech Mono',monospace; resize:none; height:36px;
+  }
+  .ai-input:focus { outline:none; border-color:var(--ai); }
+  .ai-input::placeholder { color:var(--muted); }
+  .ai-send { padding:0 12px; border-radius:4px; background:var(--ai); color:#000; border:none; cursor:pointer; font-weight:700; font-size:12px; font-family:'Barlow Condensed',sans-serif; letter-spacing:.5px; }
+  .ai-send:hover { opacity:.85; }
+  .ai-send:disabled { opacity:.4; cursor:not-allowed; }
+  .ai-quick-btns { padding:0 8px 6px; display:flex; flex-wrap:wrap; gap:4px; }
+  .ai-quick { padding:2px 7px; border-radius:3px; font-size:9px; background:var(--surface2); color:var(--muted); border:1px solid var(--border); cursor:pointer; font-family:'Barlow Condensed',sans-serif; letter-spacing:.5px; white-space:nowrap; }
+  .ai-quick:hover { color:var(--ai); border-color:var(--ai); }
+
+  /* ── STATS BAR ─────────────────────────────────── */
+  .stats-bar {
+    background:var(--surface2); border-top:1px solid var(--border);
+    padding:5px 18px; display:flex; gap:16px; align-items:center;
+    font-family:'Share Tech Mono',monospace; font-size:11px;
+    position:fixed; bottom:0; left:0; right:0; z-index:50;
+  }
+  .stat { display:flex; gap:5px; align-items:center; }
+  .sv { font-weight:700; }
+
+  /* ── MODAL ─────────────────────────────────────── */
+  .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,.75); z-index:200; display:none; align-items:center; justify-content:center; }
+  .modal-overlay.open { display:flex; }
+  .modal { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:22px; width:360px; box-shadow:0 24px 64px rgba(0,0,0,.9); }
+  .modal h3 { font-size:16px; margin-bottom:14px; color:var(--accent); letter-spacing:1px; display:flex; align-items:center; justify-content:space-between; }
+  .modal label { display:block; font-size:10px; text-transform:uppercase; letter-spacing:1px; color:var(--muted); margin-bottom:3px; margin-top:10px; }
+  .modal input, .modal select {
+    width:100%; padding:6px 9px; border-radius:4px;
+    background:var(--bg); border:1px solid var(--border); color:var(--text);
+    font-size:12px; font-family:'Share Tech Mono',monospace;
+  }
+  .modal input:focus, .modal select:focus { outline:none; border-color:var(--accent); }
+  .modal-actions { display:flex; gap:8px; margin-top:18px; justify-content:flex-end; }
+
+  ::-webkit-scrollbar { width:5px; height:5px; }
+  ::-webkit-scrollbar-track { background:var(--bg); }
+  ::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
+  ::-webkit-scrollbar-thumb:hover { background:var(--muted); }
+  .sidebar .trailer-card { margin:0 0 5px; }
+
+  /* ── TOAST ──────────────────────────────────────── */
+  .toast { position:fixed; bottom:46px; left:50%; transform:translateX(-50%) translateY(20px); background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:8px 16px; font-size:12px; font-family:'Share Tech Mono',monospace; z-index:300; opacity:0; transition:all .3s; pointer-events:none; }
+  .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+  .toast.ok { border-color:var(--ready); color:var(--ready); }
+  .toast.err { border-color:var(--detention); color:var(--detention); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Container<span>Yard</span> <span style="font-size:13px;color:var(--muted);font-weight:400">· YARD CHECK</span></div>
+  <div class="hright">
+    <div class="live-badge"><div class="live-dot"></div>LIVE BOARD</div>
+    <div id="clock"></div>
+    <button class="btn ai-btn" onclick="toggleAI()" id="ai-toggle-btn">⚡ YARD-AI</button>
+  </div>
+</header>
+
+<div class="toolbar">
+  <span class="tlabel">Filter:</span>
+  <button class="btn active" onclick="setFilter('all',this)">All</button>
+  <button class="btn" onclick="setFilter('loaded',this)" style="color:var(--loaded)">Loaded</button>
+  <button class="btn" onclick="setFilter('empty',this)" style="color:var(--empty)">Empty</button>
+  <button class="btn" onclick="setFilter('ready',this)" style="color:var(--ready)">Ready</button>
+  <button class="btn" onclick="setFilter('hold',this)" style="color:var(--hold)">Hold</button>
+  <button class="btn" onclick="setFilter('detention',this)" style="color:var(--detention)">Detention</button>
+  <button class="btn" onclick="setFilter('backhaul',this)" style="color:var(--backhaul)">Backhaul</button>
+  <button class="btn" onclick="setFilter('transit',this)" style="color:var(--transit)">Transit</button>
+  <div style="flex:1"></div>
+  <input class="search-box" placeholder="🔍 Trailer / dest / notes…" oninput="setSearch(this.value)" />
+  <button class="btn active" onclick="openModal(null)">+ Add Trailer</button>
+</div>
+
+<div class="legend">
+  <span style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Key:</span>
+  <div class="leg"><div class="leg-dot" style="background:var(--loaded)"></div>Loaded (L)</div>
+  <div class="leg"><div class="leg-dot" style="background:var(--empty)"></div>Empty (E)</div>
+  <div class="leg"><div class="leg-dot" style="background:var(--ready)"></div>Ready</div>
+  <div class="leg"><div class="leg-dot" style="background:var(--hold)"></div>Hold</div>
+  <div class="leg"><div class="leg-dot" style="background:var(--detention)"></div>Detention ★</div>
+  <div class="leg"><div class="leg-dot" style="background:var(--backhaul)"></div>Backhaul L/H</div>
+  <div class="leg"><div class="leg-dot" style="background:var(--transit)"></div>Transit (T)</div>
+  <div class="leg"><div class="leg-dot" style="background:var(--ltl)"></div>LTL</div>
+  <div class="leg"><div class="leg-dot" style="background:var(--sb)"></div>South Bound</div>
+  <span style="margin-left:6px;font-size:10px;color:var(--muted)">(X) = Double Stacked</span>
+</div>
+
+<div class="main">
+  <!-- LEFT SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-sec">
+      <div class="sidebar-sec-title">Notice Board</div>
+      <div class="notice-board">
+        <strong>OPERATIONAL NOTES</strong>
+        <div class="ni"><div class="ni-dot" style="background:var(--detention)"></div><span>(★) = Called &amp; Notified of Detention</span></div>
+        <div class="ni"><div class="ni-dot" style="background:var(--accent)"></div><span>Small Box Truck on yard</span></div>
+        <div class="ni"><div class="ni-dot" style="background:var(--accent)"></div><span>Truck 127 &amp; Truck 143</span></div>
+        <div class="ni"><div class="ni-dot" style="background:var(--muted)"></div><span>MATZ 614010 E CHASSIS</span></div>
+        <div class="ni"><div class="ni-dot" style="background:#6ee7b7"></div><span>AWNING FLATS / STRIPS</span></div>
+        <div class="ni"><div class="ni-dot" style="background:var(--hold)"></div><span>Middle West Side active</span></div>
+      </div>
+    </div>
+    <div class="sidebar-sec" style="flex:1;display:flex;flex-direction:column">
+      <div class="sidebar-sec-title">
+        Unassigned Pool <span class="badge" id="pool-count">0</span>
+      </div>
+      <div class="pool" id="pool"
+           ondragover="onDragOver(event,'pool')"
+           ondragleave="onDragLeave(event)"
+           ondrop="onDrop(event,'pool')">
+      </div>
+    </div>
+  </div>
+
+  <!-- YARD -->
+  <div class="yard" id="yard"></div>
+
+  <!-- AI PANEL -->
+  <div class="ai-panel collapsed" id="ai-panel">
+    <div class="ai-header">
+      <div class="ai-dot"></div>
+      <div class="ai-header-title">YARD-AI Assistant</div>
+      <button class="btn" style="padding:2px 8px;font-size:10px" onclick="clearAIChat()">Clear</button>
+    </div>
+    <div class="ai-messages" id="ai-messages">
+      <div class="ai-msg assistant">👋 I'm YARD-AI. I have live visibility of the yard. Ask me anything — trailer locations, priorities, handover summaries, slot suggestions.</div>
+    </div>
+    <div class="ai-quick-btns">
+      <button class="ai-quick" onclick="quickAsk('Give me a full shift handover summary')">Handover summary</button>
+      <button class="ai-quick" onclick="quickAsk('Which trailers are in detention and need action?')">Detention alert</button>
+      <button class="ai-quick" onclick="quickAsk('Which slots are empty right now?')">Empty slots</button>
+      <button class="ai-quick" onclick="quickAsk('What trailers are ready to deliver?')">Ready trailers</button>
+      <button class="ai-quick" onclick="quickAsk('Any hold trailers that need attention?')">Hold status</button>
+    </div>
+    <div class="ai-input-area">
+      <textarea class="ai-input" id="ai-input" placeholder="Ask about trailers, slots, priorities…" onkeydown="aiKeydown(event)"></textarea>
+      <button class="ai-send" id="ai-send-btn" onclick="sendAI()">ASK</button>
+    </div>
+  </div>
+</div>
+
+<div class="stats-bar">
+  <div class="stat">Total <span class="sv" id="s-total" style="color:var(--accent)">0</span></div>
+  <div class="stat">Loaded <span class="sv" id="s-loaded" style="color:var(--loaded)">0</span></div>
+  <div class="stat">Empty <span class="sv" id="s-empty" style="color:var(--empty)">0</span></div>
+  <div class="stat">Ready <span class="sv" id="s-ready" style="color:var(--ready)">0</span></div>
+  <div class="stat">Hold <span class="sv" id="s-hold" style="color:var(--hold)">0</span></div>
+  <div class="stat">Det <span class="sv" id="s-detention" style="color:var(--detention)">0</span></div>
+  <div class="stat">B/H <span class="sv" id="s-backhaul" style="color:var(--backhaul)">0</span></div>
+  <div class="stat">Transit <span class="sv" id="s-transit" style="color:var(--transit)">0</span></div>
+  <div style="margin-left:auto;color:var(--muted);font-size:10px">Drag to move ▸ Click card to edit</div>
+</div>
+
+<!-- TRAILER MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <h3 id="modal-title">ADD TRAILER <span style="font-size:12px;color:var(--muted);cursor:pointer" onclick="closeModal()">✕</span></h3>
+    <label>Trailer ID</label>
+    <input id="f-id" placeholder="e.g. SPAN 401748" />
+    <label>Destination</label>
+    <input id="f-dest" placeholder="FBX, VALLEY, KENAI, KODIAK, DUTCH…" />
+    <label>Status</label>
+    <select id="f-status">
+      <option value="loaded">Loaded (L)</option>
+      <option value="empty">Empty (E)</option>
+      <option value="ready">Ready to Deliver</option>
+      <option value="hold">Hold</option>
+      <option value="detention">Detention ★</option>
+      <option value="backhaul">Backhaul L/H</option>
+      <option value="transit">In Transit (T)</option>
+      <option value="ltl">LTL</option>
+      <option value="sb">South Bound</option>
+      <option value="save">Save for WHS</option>
+    </select>
+    <label>Date</label>
+    <input id="f-date" placeholder="e.g. 9/5" />
+    <label>Notes / Flags</label>
+    <input id="f-notes" placeholder="e.g. EXP DOT, SHORTBILL, L/H, OWN" />
+    <label style="flex-direction:row;display:flex;align-items:center;gap:6px;margin-top:10px">
+      <input type="checkbox" id="f-double" style="width:auto"> Double Stacked (X)
+    </label>
+    <div class="modal-actions">
+      <button class="btn danger" id="btn-delete" onclick="deleteTrailer()" style="display:none;margin-right:auto">Delete</button>
+      <button class="btn" onclick="closeModal()">Cancel</button>
+      <button class="btn active" onclick="saveTrailer()">Save</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ═══════════ STATE ════════════════════════════════════════
+let trailers = [], ZONES = [];
+let dragId = null, editingId = null, filterSt = 'all', searchQ = '';
+let aiHistory = [];   // [{role, content}]
+let aiOpen = false;
+
+// ═══════════ BOOT ══════════════════════════════════════════
+async function boot() {
+  try {
+    const [zRes, tRes] = await Promise.all([
+      fetch('/api/zones').then(r => r.json()),
+      fetch('/api/trailers').then(r => r.json()),
+    ]);
+    ZONES = zRes; trailers = tRes;
+    render();
+  } catch(e) {
+    showToast('Failed to load data from server', 'err');
+  }
+}
+
+// ═══════════ API HELPERS ═══════════════════════════════════
+async function apiPost(url, body) {
+  const r = await fetch(url, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body) });
+  return r.json();
+}
+async function apiPut(url, body) {
+  const r = await fetch(url, { method:'PUT', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body) });
+  return r.json();
+}
+async function apiDelete(url) {
+  const r = await fetch(url, { method:'DELETE' });
+  return r.json();
+}
+
+// ═══════════ RENDER ════════════════════════════════════════
+function render() { renderYard(); renderPool(); renderStats(); }
+
+function renderYard() {
+  const yard = document.getElementById('yard');
+  yard.innerHTML = '';
+  ZONES.forEach(z => {
+    const occ = z.slots.filter(s => trailers.find(t => t.slot === s)).length;
+    const block = document.createElement('div');
+    block.innerHTML = `<div class="zone-label">${z.label} <span class="zone-count">${occ}/${z.slots.length}</span></div>`;
+    const row = document.createElement('div');
+    row.className = 'dock-row';
+    z.slots.forEach(sid => {
+      const slot = document.createElement('div');
+      slot.className = 'dock-slot';
+      slot.dataset.slot = sid;
+      slot.innerHTML = `<div class="slot-id">${sid}</div>`;
+      const t = trailers.find(t => t.slot === sid);
+      if (t) { slot.classList.add('occupied'); slot.appendChild(makeCard(t)); }
+      slot.addEventListener('dragover', e => onDragOver(e, sid));
+      slot.addEventListener('dragleave', onDragLeave);
+      slot.addEventListener('drop', e => onDrop(e, sid));
+      row.appendChild(slot);
+    });
+    block.appendChild(row);
+    yard.appendChild(block);
+  });
+}
+
+function renderPool() {
+  const pool = document.getElementById('pool');
+  pool.innerHTML = '';
+  const unassigned = trailers.filter(t => !t.slot);
+  unassigned.forEach(t => pool.appendChild(makeCard(t)));
+  document.getElementById('pool-count').textContent = unassigned.length;
+}
+
+function makeCard(t) {
+  const card = document.createElement('div');
+  card.className = `trailer-card s-${t.status}${t.double ? ' double-stacked' : ''}`;
+  card.dataset.tid = t.id;
+  card.draggable = true;
+  const mf = filterSt === 'all' || t.status === filterSt;
+  const q = searchQ.toLowerCase();
+  const ms = !q || t.id.toLowerCase().includes(q) || t.dest.toLowerCase().includes(q) || t.notes.toLowerCase().includes(q);
+  if (!mf || !ms) card.style.opacity = '0.1';
+  const SL = {loaded:'LOADED',empty:'EMPTY',hold:'HOLD',detention:'DET ★',ready:'READY',backhaul:'B/H',transit:'TRANSIT',ltl:'LTL',sb:'S/B',save:'WHS'};
+  card.innerHTML = `
+    <div class="trailer-id">${t.id}</div>
+    ${t.dest ? `<div class="trailer-dest">${t.dest}</div>` : ''}
+    ${t.date ? `<div class="trailer-date">${t.date}</div>` : ''}
+    <div class="trailer-flags">
+      <span class="flag s-${t.status}">${SL[t.status]||t.status.toUpperCase()}</span>
+      ${t.notes ? `<span class="flag" style="background:rgba(255,255,255,.07);color:var(--muted)">${t.notes}</span>` : ''}
+    </div>`;
+  card.addEventListener('dragstart', e => { dragId = t.id; card.classList.add('dragging'); e.dataTransfer.effectAllowed = 'move'; });
+  card.addEventListener('dragend', () => { dragId = null; card.classList.remove('dragging'); document.querySelectorAll('.drag-over').forEach(el => el.classList.remove('drag-over')); });
+  card.addEventListener('click', () => openModal(t.id));
+  return card;
+}
+
+// ═══════════ DRAG & DROP ═══════════════════════════════════
+function onDragOver(e, sid) { e.preventDefault(); e.currentTarget.classList.add('drag-over'); }
+function onDragLeave(e) { e.currentTarget.classList.remove('drag-over'); }
+async function onDrop(e, sid) {
+  e.preventDefault(); e.currentTarget.classList.remove('drag-over');
+  if (!dragId) return;
+  const res = await apiPost('/api/move', { id: dragId, slot: sid === 'pool' ? null : sid });
+  if (res.error) { showToast(res.error, 'err'); return; }
+  // Sync local state
+  const t = trailers.find(x => x.id === dragId);
+  if (t) {
+    if (sid !== 'pool') {
+      const occ = trailers.find(x => x.slot === sid);
+      if (occ) occ.slot = t.slot;
+      t.slot = sid;
+    } else { t.slot = null; }
+  }
+  render();
+}
+
+// ═══════════ FILTER / SEARCH ═══════════════════════════════
+function setFilter(s, btn) {
+  filterSt = s;
+  document.querySelectorAll('.toolbar .btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active'); render();
+}
+function setSearch(q) { searchQ = q; render(); }
+
+// ═══════════ MODAL ══════════════════════════════════════════
+function openModal(tid) {
+  editingId = tid || null;
+  const t = tid ? trailers.find(x => x.id === tid) : null;
+  document.getElementById('modal-title').innerHTML = (t ? 'EDIT TRAILER' : 'ADD TRAILER') +
+    ' <span style="font-size:12px;color:var(--muted);cursor:pointer" onclick="closeModal()">✕</span>';
+  document.getElementById('f-id').value       = t ? t.id     : '';
+  document.getElementById('f-dest').value     = t ? t.dest   : '';
+  document.getElementById('f-status').value   = t ? t.status : 'loaded';
+  document.getElementById('f-date').value     = t ? t.date   : '';
+  document.getElementById('f-notes').value    = t ? t.notes  : '';
+  document.getElementById('f-double').checked = t ? t.double : false;
+  document.getElementById('f-id').disabled    = !!t;
+  document.getElementById('btn-delete').style.display = t ? 'block' : 'none';
+  document.getElementById('modal-overlay').classList.add('open');
+}
+function closeModal() { document.getElementById('modal-overlay').classList.remove('open'); editingId = null; }
+function closeModalOutside(e) { if (e.target === document.getElementById('modal-overlay')) closeModal(); }
+
+async function saveTrailer() {
+  const id     = document.getElementById('f-id').value.trim().toUpperCase();
+  const dest   = document.getElementById('f-dest').value.trim().toUpperCase();
+  const status = document.getElementById('f-status').value;
+  const date   = document.getElementById('f-date').value.trim();
+  const notes  = document.getElementById('f-notes').value.trim();
+  const dbl    = document.getElementById('f-double').checked;
+  if (!id) { showToast('Trailer ID required', 'err'); return; }
+
+  if (editingId) {
+    const res = await apiPut(`/api/trailers/${encodeURIComponent(editingId)}`, {dest,status,date,notes,double:dbl});
+    if (res.error) { showToast(res.error, 'err'); return; }
+    const t = trailers.find(x => x.id === editingId);
+    if (t) Object.assign(t, {dest,status,date,notes,double:dbl});
+    showToast('Trailer updated', 'ok');
+  } else {
+    const res = await apiPost('/api/trailers', {id,dest,status,date,notes,double:dbl});
+    if (res.error) { showToast(res.error, 'err'); return; }
+    trailers.push(res);
+    showToast('Trailer added', 'ok');
+  }
+  closeModal(); render();
+}
+
+async function deleteTrailer() {
+  if (!editingId || !confirm('Remove this trailer?')) return;
+  const res = await apiDelete(`/api/trailers/${encodeURIComponent(editingId)}`);
+  if (res.error) { showToast(res.error, 'err'); return; }
+  trailers = trailers.filter(x => x.id !== editingId);
+  showToast('Trailer removed', 'ok');
+  closeModal(); render();
+}
+
+// ═══════════ STATS ══════════════════════════════════════════
+function renderStats() {
+  const c = s => trailers.filter(t => t.status === s).length;
+  document.getElementById('s-total').textContent     = trailers.length;
+  document.getElementById('s-loaded').textContent    = c('loaded');
+  document.getElementById('s-empty').textContent     = c('empty');
+  document.getElementById('s-ready').textContent     = c('ready');
+  document.getElementById('s-hold').textContent      = c('hold');
+  document.getElementById('s-detention').textContent = c('detention');
+  document.getElementById('s-backhaul').textContent  = c('backhaul');
+  document.getElementById('s-transit').textContent   = c('transit');
+}
+
+// ═══════════ CLOCK ══════════════════════════════════════════
+function tick() {
+  const n = new Date();
+  document.getElementById('clock').textContent =
+    n.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'}) + '  ' +
+    n.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+}
+setInterval(tick,1000); tick();
+
+// ═══════════ TOAST ══════════════════════════════════════════
+function showToast(msg, type='ok') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = `toast ${type} show`;
+  setTimeout(() => el.classList.remove('show'), 2600);
+}
+
+// ═══════════ AI PANEL ═══════════════════════════════════════
+function toggleAI() {
+  aiOpen = !aiOpen;
+  const panel = document.getElementById('ai-panel');
+  const btn   = document.getElementById('ai-toggle-btn');
+  panel.classList.toggle('collapsed', !aiOpen);
+  btn.classList.toggle('active', aiOpen);
+  if (aiOpen) document.getElementById('ai-input').focus();
+}
+
+function clearAIChat() {
+  aiHistory = [];
+  const msgs = document.getElementById('ai-messages');
+  msgs.innerHTML = '<div class="ai-msg assistant">👋 Chat cleared. Ask me anything about the yard.</div>';
+}
+
+function quickAsk(text) {
+  if (!aiOpen) toggleAI();
+  document.getElementById('ai-input').value = text;
+  sendAI();
+}
+
+function aiKeydown(e) {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendAI(); }
+}
+
+async function sendAI() {
+  const input = document.getElementById('ai-input');
+  const msg   = input.value.trim();
+  if (!msg) return;
+  input.value = '';
+
+  const msgs = document.getElementById('ai-messages');
+  const sendBtn = document.getElementById('ai-send-btn');
+
+  // Add user bubble
+  const userDiv = document.createElement('div');
+  userDiv.className = 'ai-msg user';
+  userDiv.textContent = msg;
+  msgs.appendChild(userDiv);
+
+  // Thinking indicator
+  const thinking = document.createElement('div');
+  thinking.className = 'ai-msg thinking';
+  thinking.textContent = '⚙ Analysing yard…';
+  msgs.appendChild(thinking);
+  msgs.scrollTop = msgs.scrollHeight;
+
+  sendBtn.disabled = true;
+
+  aiHistory.push({ role:'user', content: msg });
+
+  try {
+    const res = await fetch('/api/ai', {
+      method: 'POST',
+      headers: { 'Content-Type':'application/json' },
+      body: JSON.stringify({ message: msg, history: aiHistory.slice(-10) }),
+    });
+    const data = await res.json();
+    thinking.remove();
+
+    if (data.error) {
+      const errDiv = document.createElement('div');
+      errDiv.className = 'ai-msg thinking';
+      errDiv.textContent = '⚠ ' + data.error;
+      msgs.appendChild(errDiv);
+    } else {
+      aiHistory.push({ role:'assistant', content: data.reply });
+      const replyDiv = document.createElement('div');
+      replyDiv.className = 'ai-msg assistant';
+      replyDiv.textContent = data.reply;
+      msgs.appendChild(replyDiv);
+    }
+  } catch(e) {
+    thinking.remove();
+    const errDiv = document.createElement('div');
+    errDiv.className = 'ai-msg thinking';
+    errDiv.textContent = '⚠ Could not reach server.';
+    msgs.appendChild(errDiv);
+  }
+
+  msgs.scrollTop = msgs.scrollHeight;
+  sendBtn.disabled = false;
+}
+
+// ═══════════ INIT ══════════════════════════════════════════
+boot();
+</script>
+</body>
+</html>
